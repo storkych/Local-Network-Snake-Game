@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -85,21 +86,78 @@ namespace SnakeGame
 
         private void HandleJoin(string payload, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"Игрок подключился: {senderEndPoint}");
-            // Создать или найти сессию и добавить игрока
+            // Проверить, не находится ли игрок уже в сессии
+            foreach (var session in _sessions.Values)
+            {
+                if (session.Player1.Equals(senderEndPoint) || (session.Player2?.Equals(senderEndPoint) ?? false))
+                {
+                    Console.WriteLine($"Игрок {senderEndPoint} уже в сессии.");
+                    return;
+                }
+            }
+
+            // Найти свободную сессию
+            var availableSession = _sessions.Values.FirstOrDefault(s => !s.IsFull);
+
+            if (availableSession != null)
+            {
+                // Добавить игрока в свободную сессию
+                availableSession.AddPlayer(senderEndPoint);
+                Console.WriteLine($"Игрок {senderEndPoint} добавлен в сессию.");
+                SendMessage("START|2", senderEndPoint); // Сообщить игроку, что игра началась
+            }
+            else
+            {
+                // Создать новую сессию
+                var sessionId = Guid.NewGuid().ToString();
+                var newSession = new GameSession(senderEndPoint);
+                _sessions[sessionId] = newSession;
+                Console.WriteLine($"Создана новая сессия {sessionId} для игрока {senderEndPoint}.");
+                SendMessage("START|1", senderEndPoint); // Сообщить игроку, что он ждёт второго игрока
+            }
         }
+
 
         private void HandleMove(string payload, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"Движение игрока: {payload}");
-            // Обновить состояние игры
+            // Найти сессию, в которой находится игрок
+            var session = _sessions.Values.FirstOrDefault(s =>
+                s.Player1.Equals(senderEndPoint) || (s.Player2?.Equals(senderEndPoint) ?? false));
+
+            if (session == null)
+            {
+                Console.WriteLine($"Игрок {senderEndPoint} не найден в сессии.");
+                return;
+            }
+
+            // Переслать данные другому игроку
+            var opponent = session.Player1.Equals(senderEndPoint) ? session.Player2 : session.Player1;
+            if (opponent != null)
+            {
+                SendMessage($"MOVE|{payload}", opponent);
+            }
         }
+
 
         private void HandleLeave(string payload, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"Игрок покинул игру: {senderEndPoint}");
-            // Удалить игрока из сессии
+            var sessionId = _sessions.FirstOrDefault(s =>
+                s.Value.Player1.Equals(senderEndPoint) || (s.Value.Player2?.Equals(senderEndPoint) ?? false)).Key;
+
+            if (sessionId != null)
+            {
+                _sessions.Remove(sessionId);
+                Console.WriteLine($"Игрок {senderEndPoint} покинул сессию {sessionId}.");
+                SendMessage("END|Opponent left", senderEndPoint);
+            }
         }
+        private void SendMessage(string message, IPEndPoint recipient)
+        {
+            var data = Encoding.UTF8.GetBytes(message);
+            _server.Send(data, data.Length, recipient);
+            Console.WriteLine($"Отправлено сообщение: {message} -> {recipient}");
+        }
+
     }
 
     public class GameSession

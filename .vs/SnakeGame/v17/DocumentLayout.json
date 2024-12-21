@@ -7,11 +7,11 @@
       "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\gamestatedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\gamestatedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gamestatedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\saveloadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -60,7 +60,7 @@
               "RelativeDocumentMoniker": "SnakeGame\\GameServer.cs",
               "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameServer.cs",
               "RelativeToolTip": "SnakeGame\\GameServer.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAADwv2oAAAAvAAAA",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAmwHsAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-21T22:52:17.772Z",
               "EditorCaption": ""
@@ -75,8 +75,7 @@
               "RelativeToolTip": "SnakeGame\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T22:38:11.672Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T22:38:11.672Z"
             },
             {
               "$type": "Document",
@@ -155,8 +154,7 @@
               "RelativeToolTip": "SnakeGame\\SaveLoadManager.cs",
               "ViewState": "AQIAAE4AAAAAAAAAAAAgwHcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T22:38:11.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T22:38:11.787Z"
             },
             {
               "$type": "Document",
@@ -168,8 +166,7 @@
               "RelativeToolTip": "SnakeGame\\GameEngine.cs",
               "ViewState": "AQIAAHYBAAAAAAAAAAAQwNoBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T22:38:11.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T22:38:11.799Z"
             },
             {
               "$type": "Document",
@@ -181,8 +178,7 @@
               "RelativeToolTip": "SnakeGame\\TitlePrinter.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T22:38:11.805Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T22:38:11.805Z"
             }
           ]
         }
