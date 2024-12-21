@@ -1,0 +1,192 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\gamestatedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gamestatedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\saveloadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\saveloadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\titleprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\titleprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\snake.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\snake.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\pixel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\pixel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\snakegame\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGame.csproj|solutionrelative:snakegame\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 258,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameServer.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameServer.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\GameServer.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameServer.cs",
+              "RelativeToolTip": "SnakeGame\\GameServer.cs",
+              "ViewState": "AQIAAFUAAAAAAAAAAADwv2oAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:52:17.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Program.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\Program.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Program.cs",
+              "RelativeToolTip": "SnakeGame\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.672Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pixel.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Pixel.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\Pixel.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Pixel.cs",
+              "RelativeToolTip": "SnakeGame\\Pixel.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAswA4AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GameState.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameState.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\GameState.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameState.cs",
+              "RelativeToolTip": "SnakeGame\\GameState.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Snake.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Snake.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\Snake.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Snake.cs",
+              "RelativeToolTip": "SnakeGame\\Snake.cs",
+              "ViewState": "AQIAAHkAAAAAAAAAAAAwwHoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Direction.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Direction.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\Direction.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\Direction.cs",
+              "RelativeToolTip": "SnakeGame\\Direction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.782Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 142,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameStateData.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameStateData.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\GameStateData.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameStateData.cs",
+              "RelativeToolTip": "SnakeGame\\GameStateData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SaveLoadManager.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\SaveLoadManager.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\SaveLoadManager.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\SaveLoadManager.cs",
+              "RelativeToolTip": "SnakeGame\\SaveLoadManager.cs",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAgwHcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameEngine.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameEngine.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\GameEngine.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\GameEngine.cs",
+              "RelativeToolTip": "SnakeGame\\GameEngine.cs",
+              "ViewState": "AQIAAHYBAAAAAAAAAAAQwNoBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TitlePrinter.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\TitlePrinter.cs",
+              "RelativeDocumentMoniker": "SnakeGame\\TitlePrinter.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\SnakeGame\\TitlePrinter.cs",
+              "RelativeToolTip": "SnakeGame\\TitlePrinter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T22:38:11.805Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -28,3 +28,13 @@ D:\загрузки\гитхаб\snakegame\SnakeGame\SnakeGame\obj\Debug\SnakeGa
 C:\Users\User\Documents\GitHub\snakegame\SnakeGame\SnakeGame\bin\Debug\Newtonsoft.Json.dll
 C:\Users\User\Documents\GitHub\snakegame\SnakeGame\SnakeGame\bin\Debug\Newtonsoft.Json.xml
 C:\Users\User\Documents\GitHub\snakegame\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csproj.CopyComplete
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\bin\Debug\SnakeGame.exe.config
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\bin\Debug\SnakeGame.exe
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\bin\Debug\SnakeGame.pdb
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\bin\Debug\Newtonsoft.Json.dll
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\bin\Debug\Newtonsoft.Json.xml
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\obj\Debug\SnakeGame.csproj.AssemblyReference.cache
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\obj\Debug\SnakeGame.csproj.CoreCompileInputs.cache
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\obj\Debug\SnakeGame.csproj.Up2Date
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\obj\Debug\SnakeGame.exe
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeGame\obj\Debug\SnakeGame.pdb
