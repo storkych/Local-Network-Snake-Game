@@ -305,10 +305,26 @@ namespace SnakeGame
             {
                 var key = Console.ReadKey(intercept: true).Key;
                 // Управление для игрока 1
-                if (key == ConsoleKey.W && dir1 != Direction.Down) dir1 = Direction.Up;
-                else if (key == ConsoleKey.S && dir1 != Direction.Up) dir1 = Direction.Down;
-                else if (key == ConsoleKey.A && dir1 != Direction.Right) dir1 = Direction.Left;
-                else if (key == ConsoleKey.D && dir1 != Direction.Left) dir1 = Direction.Right;
+                if (key == ConsoleKey.W && dir1 != Direction.Down)
+                {
+                    dir1 = Direction.Up;
+                    direction = "UP";
+                }
+                else if (key == ConsoleKey.S && dir1 != Direction.Up) 
+                {
+                    dir1 = Direction.Down;
+                    direction = "DOWN";
+                }
+                else if (key == ConsoleKey.A && dir1 != Direction.Right) 
+                { 
+                    dir1 = Direction.Left;
+                    direction = "LEFT";
+                }
+                else if (key == ConsoleKey.D && dir1 != Direction.Left) 
+                { 
+                    dir1 = Direction.Right;
+                    direction = "RIGHT";
+                }
 
                 // Управление для игрока 2
                 if (key == ConsoleKey.UpArrow && dir2 != Direction.Down) dir2 = Direction.Up;
@@ -338,7 +354,7 @@ namespace SnakeGame
         // Отправка команды изменения направления
         private void SendDirection()
         {
-            string message = $"MOVE,{direction}";
+            string message = $"MOVE|{direction}";
             byte[] data = Encoding.UTF8.GetBytes(message);
             client.Send(data, data.Length, serverEndPoint);
         }

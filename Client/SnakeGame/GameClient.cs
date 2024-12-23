@@ -40,7 +40,7 @@ namespace SnakeGame
 
         private void SendDirection()
         {
-            string message = $"MOVE,{direction}";
+            string message = $"MOVE|{direction}";
             byte[] data = Encoding.UTF8.GetBytes(message);
             udpClient.Send(data, data.Length, serverEndPoint);
         }
