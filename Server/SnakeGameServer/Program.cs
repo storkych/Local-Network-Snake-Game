@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeGameServer
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
+            var server = new GameServer(12345); // Укажите порт
+            server.Start();
+
+            Console.WriteLine("Нажмите любую клавишу, чтобы остановить сервер...");
+            Console.ReadKey();
+
+            server.Stop(); // Остановка сервера
         }
     }
 }

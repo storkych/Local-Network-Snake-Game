@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="GameClient.cs" />
     <Compile Include="GameEngine.cs" />
-    <Compile Include="GameServer.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameStateData.cs" />
     <Compile Include="Pixel.cs" />
