@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
+using System.Threading;
 using static System.Console;
+using System.Text;
 
 namespace SnakeGame
 {
@@ -34,10 +38,14 @@ namespace SnakeGame
 
         static bool pauseRequested = false;
 
+        private UdpClient client;
+        private IPEndPoint serverEndPoint;
+        private string direction = "RIGHT"; // Направление по умолчанию
+
         /// <summary>
         /// Конструктор класса GameEngine.
         /// </summary>
-        public GameEngine()
+        public GameEngine(UdpClient client, IPEndPoint serverEndPoint)
         {
             gameState = GameState.MainMenu;
             gameStateData = new GameStateData();
@@ -45,6 +53,8 @@ namespace SnakeGame
             saveLoadManager = new SaveLoadManager();
             SetWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT + 5);
             SetBufferSize(SCREEN_WIDTH, SCREEN_HEIGHT + 5);
+            this.client = client;
+            this.serverEndPoint = serverEndPoint;
         }
 
         /// <summary>
@@ -215,166 +225,124 @@ namespace SnakeGame
             }
         }
 
-        /// <summary>
-        /// Начинает игру или продолжает сохраненную игру.
-        /// </summary>
-        /// <returns></returns>
         private GameStateData StartGame()
         {
-            string playerName = "";
             bool isGameOver = false;
 
-            Snake snake;
-            Pixel food;
-            int score = 0;
-            GameStateData matchData = new GameStateData();
-            Direction SnakeDir;
+            // Создаем змейки и еду для двух игроков
+            Snake snake1 = new Snake(10, 5, HEAD_COLOR, BODY_COLOR);
+            Snake snake2 = new Snake(10, 15, ConsoleColor.Red, ConsoleColor.DarkRed);
 
-            if (!gameStateData.IsSavedGame)
-            {
-                playerName = GetPlayerName();
+            Pixel food1 = GenFood(snake1);
+            Pixel food2 = GenFood(snake2);
 
-                snake = new Snake(10, 5, HEAD_COLOR, BODY_COLOR);
-                food = GenFood(snake);
-                SnakeDir = Direction.Right;
-            }
-            else
-            {
-                playerName = gameStateData.PlayerName;
-                snake = new Snake(gameStateData.Head, gameStateData.Body);
-                food = gameStateData.Food;
-                score = gameStateData.Score;
-                SnakeDir = gameStateData.SnakeDir;
-            }
+            int score1 = 0, score2 = 0;
+            Direction dir1 = Direction.Right, dir2 = Direction.Right;
+
             Clear();
             DrawBoard();
-            food.Draw();
 
-            Direction currentMovement = Direction.Right;
+            food1.Draw();
+            food2.Draw();
 
-            int lagMs = 0;
             var sw = new Stopwatch();
+            int lagMs = 0;
 
-            string infoText = $"| Текущий счёт: {score} |";
-            int x = (SCREEN_WIDTH - infoText.Length) / 2;
-            SetCursorPosition((SCREEN_WIDTH - playerName.Length) / 2, SCREEN_HEIGHT + 1);
-            Write($"{playerName}");
-            SetCursorPosition((SCREEN_WIDTH - 15) / 2, SCREEN_HEIGHT + 3);
-            Write($"| ESC - Пауза |");
-            while (!isGameOver && !pauseRequested)
+            while (!isGameOver)
             {
-                // Метод, считывающий управление.
-                HandleUserInput(ref SnakeDir); 
-                SetCursorPosition(0, 0);
-                // Очистка предыдущей строки.
-                Write(new string(' ', SCREEN_WIDTH));
-                SetCursorPosition(x, 1);
-                // Вывод строки с информацией.
-                Write($"| Текущий счёт: {score} |");
+                HandleUserInput(ref dir1, ref dir2);
 
-                sw.Restart();
-                Direction oldMovement = currentMovement;
-
-                while (sw.ElapsedMilliseconds <= FRAME_MILLISECONDS - lagMs)
+                // Обновляем поле игрока 1
+                if (snake1.Head.X == food1.X && snake1.Head.Y == food1.Y)
                 {
-                    if (currentMovement == oldMovement)
-                    {
-                        currentMovement = SnakeDir;
-                    }
-                }
-
-                sw.Restart();
-                                
-                if ((snake.Head.X == food.X) && (snake.Head.Y == food.Y))
-                {
-                    snake.Move(currentMovement, true);
-                    food = GenFood(snake);
-                    food.Draw();
-
-                    score++;
+                    snake1.Move(dir1, true);
+                    food1 = GenFood(snake1);
+                    food1.Draw();
+                    score1++;
                 }
                 else
                 {
-                    snake.Move(currentMovement);
+                    snake1.Move(dir1);
                 }
-                // Условие смерти змейки.
-                if ((snake.Head.X == MAP_WIDTH - 1)
-                    || (snake.Head.X == 0)
-                    || (snake.Head.Y == MAP_HEIGHT - 1)
-                    || (snake.Head.Y == 0)
-                    || (snake.Body.Any(b => b.X == snake.Head.X && b.Y == snake.Head.Y)))
+
+                // Обновляем поле игрока 2
+                if (snake2.Head.X == food2.X && snake2.Head.Y == food2.Y)
+                {
+                    snake2.Move(dir2, true);
+                    food2 = GenFood(snake2);
+                    food2.Draw();
+                    score2++;
+                }
+                else
+                {
+                    snake2.Move(dir2);
+                }
+
+                // Проверяем столкновения для обеих змей
+                if (CheckCollision(snake1) || CheckCollision(snake2))
                 {
                     isGameOver = true;
                 }
 
+                // Отображаем счета
+                SetCursorPosition(2, SCREEN_HEIGHT + 1);
+                Write($"Игрок 1: {score1}");
+                SetCursorPosition(SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT + 1);
+                Write($"Игрок 2: {score2}");
+
+                Thread.Sleep(FRAME_MILLISECONDS - lagMs);
+                sw.Restart();
                 lagMs = (int)sw.ElapsedMilliseconds;
             }
 
-            matchData.Food = food;
-            matchData.Score = score;
-            matchData.PlayerName = playerName;
-            matchData.Head = snake.Head;
-            matchData.Body = snake.Body;
-            matchData.SnakeDir = SnakeDir;
-
-            if (pauseRequested)
-            {
-                pauseRequested = false;
-                gameStateData = matchData;
-                gameStateData.IsSavedGame = true;
-                gameState = GameState.Paused;
-            }
-            else
-            {
-                gameStateData = new GameStateData();
-                saveLoadManager.QuietSave(gameStateData);
-                for (int i = 1; i < MAP_WIDTH - 1; i++)
-                {
-                    for (int j = 1; j < MAP_HEIGHT - 1; j++)
-                    {
-                        SetCursorPosition(i * 3, j);
-                        Write(" ");
-                    }
-                }
-                gameState = GameState.GameOver;
-            }
-
-            snake.Clear();
-            food.Clear();
-            return matchData;
+            // Возвращаем данные о состоянии игры
+            return new GameStateData();
         }
 
-        /// <summary>
-        /// Считывает нажатия клавиш пользователем и меняет направление змейки.
-        /// </summary>
-        /// <param name="snakeDir"> - направление змейки. </param>
-        private void HandleUserInput(ref Direction snakeDir)
+        private void HandleUserInput(ref Direction dir1, ref Direction dir2)
         {
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
-                if (key == ConsoleKey.Escape)
-                {
-                    pauseRequested = true;
-                }
-                else if (key == ConsoleKey.W)
-                {
-                    if (snakeDir != Direction.Down) { snakeDir = Direction.Up; }
-                }
-                else if (key == ConsoleKey.S)
-                {
-                    if (snakeDir != Direction.Up) { snakeDir = Direction.Down; }
-                }
-                else if (key == ConsoleKey.A)
-                {
-                    if (snakeDir != Direction.Right) { snakeDir = Direction.Left; }
-                }
-                else if (key == ConsoleKey.D)
-                {
-                    if (snakeDir != Direction.Left) { snakeDir = Direction.Right; }
-                }
+                // Управление для игрока 1
+                if (key == ConsoleKey.W && dir1 != Direction.Down) dir1 = Direction.Up;
+                else if (key == ConsoleKey.S && dir1 != Direction.Up) dir1 = Direction.Down;
+                else if (key == ConsoleKey.A && dir1 != Direction.Right) dir1 = Direction.Left;
+                else if (key == ConsoleKey.D && dir1 != Direction.Left) dir1 = Direction.Right;
+
+                // Управление для игрока 2
+                if (key == ConsoleKey.UpArrow && dir2 != Direction.Down) dir2 = Direction.Up;
+                else if (key == ConsoleKey.DownArrow && dir2 != Direction.Up) dir2 = Direction.Down;
+                else if (key == ConsoleKey.LeftArrow && dir2 != Direction.Right) dir2 = Direction.Left;
+                else if (key == ConsoleKey.RightArrow && dir2 != Direction.Left) dir2 = Direction.Right;
+                SendDirection();
             }
         }
+
+        private bool CheckCollision(Snake snake)
+        {
+            return snake.Head.X == 0 || snake.Head.X == MAP_WIDTH - 1 ||
+                   snake.Head.Y == 0 || snake.Head.Y == MAP_HEIGHT - 1 ||
+                   snake.Body.Any(b => b.X == snake.Head.X && b.Y == snake.Head.Y);
+        }
+
+
+        private void DisplayScores(int score1, int score2)
+        {
+            SetCursorPosition(2, SCREEN_HEIGHT + 1);
+            Write($"Игрок 1: {score1}");
+            SetCursorPosition(SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT + 1);
+            Write($"Игрок 2: {score2}");
+        }
+
+        // Отправка команды изменения направления
+        private void SendDirection()
+        {
+            string message = $"MOVE,{direction}";
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            client.Send(data, data.Length, serverEndPoint);
+        }
+
 
         /// <summary>
         /// Запрашивает у пользователя ввод ника.

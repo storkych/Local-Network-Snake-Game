@@ -13,14 +13,19 @@ namespace SnakeGame
             var client = new UdpClient();
             var serverEndPoint = new IPEndPoint(IPAddress.Loopback, 12345); // Адрес сервера и порт
 
-            // Пример отправки команды JOIN
+            // Пример отправки команды JOIN для каждого игрока
             SendMessage(client, serverEndPoint, "JOIN|Player1");
 
-            // Пример получения ответа от сервера
+            // Получаем ответ от сервера (например, подтверждение подключения)
             var serverResponse = ReceiveMessage(client);
             Console.WriteLine($"Ответ от сервера: {serverResponse}");
+
+            // Запускаем игровую логику (например, движение змейки)
+            GameEngine gameEngine = new GameEngine(client, serverEndPoint);
+            gameEngine.Run();
         }
 
+        // Отправка сообщения на сервер
         static void SendMessage(UdpClient client, IPEndPoint serverEndPoint, string message)
         {
             byte[] data = Encoding.UTF8.GetBytes(message);
@@ -28,6 +33,7 @@ namespace SnakeGame
             Console.WriteLine($"Отправлено сообщение: {message}");
         }
 
+        // Получение сообщения от сервера
         static string ReceiveMessage(UdpClient client)
         {
             // Создаем изменяемую переменную для EndPoint
