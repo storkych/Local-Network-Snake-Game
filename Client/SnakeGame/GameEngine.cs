@@ -42,6 +42,8 @@ namespace SnakeGame
         private IPEndPoint serverEndPoint;
         private string direction = "RIGHT"; // Направление по умолчанию
 
+        private bool isClientHost = true;
+
         /// <summary>
         /// Конструктор класса GameEngine.
         /// </summary>
@@ -123,7 +125,6 @@ namespace SnakeGame
                                     // Обработка начала новой игры.
                                     gameState = GameState.InGame;
                                     gameStateData = new GameStateData();
-                                    saveLoadManager.QuietSave(gameStateData);
                                 }
                                 else if (selectedItem == 1)
                                 {
@@ -219,8 +220,15 @@ namespace SnakeGame
             bool isGameOver = false;
 
             // Создаем змейки и еду для двух игроков
-            Snake snake1 = new Snake(10, 5, HEAD_COLOR, BODY_COLOR);
+            Snake snake1 = new Snake(10, 5, ConsoleColor.Blue, ConsoleColor.DarkBlue);
             Snake snake2 = new Snake(10, 15, ConsoleColor.Red, ConsoleColor.DarkRed);
+            
+            if (!isClientHost)
+            {
+                Snake temp = snake2;
+                snake2 = snake1;
+                snake1 = temp;
+            }
 
             Pixel food1 = GenFood(snake1);
             Pixel food2 = GenFood(snake2);
@@ -239,7 +247,7 @@ namespace SnakeGame
 
             while (!isGameOver)
             {
-                HandleUserInput(ref dir1, ref dir2);
+                HandleUserInput(ref dir1);
 
                 // Обновляем поле игрока 1
                 if (snake1.Head.X == food1.X && snake1.Head.Y == food1.Y)
@@ -288,38 +296,32 @@ namespace SnakeGame
             return new GameStateData();
         }
 
-        private void HandleUserInput(ref Direction dir1, ref Direction dir2)
+        private void HandleUserInput(ref Direction dir)
         {
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
                 // Управление для игрока 1
-                if (key == ConsoleKey.W && dir1 != Direction.Down)
+                if (key == ConsoleKey.W && dir != Direction.Down)
                 {
-                    dir1 = Direction.Up;
+                    dir = Direction.Up;
                     direction = "UP";
                 }
-                else if (key == ConsoleKey.S && dir1 != Direction.Up) 
+                else if (key == ConsoleKey.S && dir != Direction.Up) 
                 {
-                    dir1 = Direction.Down;
+                    dir = Direction.Down;
                     direction = "DOWN";
                 }
-                else if (key == ConsoleKey.A && dir1 != Direction.Right) 
+                else if (key == ConsoleKey.A && dir != Direction.Right) 
                 { 
-                    dir1 = Direction.Left;
+                    dir = Direction.Left;
                     direction = "LEFT";
                 }
-                else if (key == ConsoleKey.D && dir1 != Direction.Left) 
+                else if (key == ConsoleKey.D && dir != Direction.Left) 
                 { 
-                    dir1 = Direction.Right;
+                    dir = Direction.Right;
                     direction = "RIGHT";
                 }
-
-                // Управление для игрока 2
-                if (key == ConsoleKey.UpArrow && dir2 != Direction.Down) dir2 = Direction.Up;
-                else if (key == ConsoleKey.DownArrow && dir2 != Direction.Up) dir2 = Direction.Down;
-                else if (key == ConsoleKey.LeftArrow && dir2 != Direction.Right) dir2 = Direction.Left;
-                else if (key == ConsoleKey.RightArrow && dir2 != Direction.Left) dir2 = Direction.Right;
                 SendDirection();
             }
         }
