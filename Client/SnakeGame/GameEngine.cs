@@ -85,13 +85,7 @@ namespace SnakeGame
                             Clear();
                             printer.TitlePrint();
 
-                            string[] menuItems = new string[] { "Продолжить игру", "Новая игра", "Таблица рекордов", "Выход" };
-
-                            if (!gameStateData.IsSavedGame)
-                            {
-                                // Если сохраненной игры нет, "Продолжить игру" будет неактивным (серого цвета).
-                                menuItems[0] = "[Недоступно] Продолжить игру";
-                            }
+                            string[] menuItems = new string[] { "Новая игра", "Таблица рекордов", "Выход" };
 
                             for (var i = 0; i < menuItems.Length; i++)
                             {
@@ -124,19 +118,14 @@ namespace SnakeGame
                                     // Устанавливаем флаг выхода.
                                     exitRequested = true;
                                 }
-                                else if ((selectedItem == 0) && (gameStateData.IsSavedGame))
-                                {
-                                    // Обработка продолжения игры.
-                                    gameState = GameState.InGame;
-                                }
-                                else if (selectedItem == 1)
+                                else if (selectedItem == 0)
                                 {
                                     // Обработка начала новой игры.
                                     gameState = GameState.InGame;
                                     gameStateData = new GameStateData();
                                     saveLoadManager.QuietSave(gameStateData);
                                 }
-                                else if (selectedItem == 2)
+                                else if (selectedItem == 1)
                                 {
                                     ShowRecords(records);
                                     selectedItem = 0;
