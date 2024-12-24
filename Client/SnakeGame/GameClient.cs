@@ -13,22 +13,23 @@ namespace SnakeGame
         private const int port = 12345;
 
         GameEngine gameEngine;
+        public string role = "";
+        public int playerID;
+        public bool secondPlayer = false;
 
         public GameClient()
         {
             udpClient = new UdpClient();
             serverEndPoint = new IPEndPoint(IPAddress.Loopback, port);
+            gameEngine = new GameEngine(this);
         }
 
         public void Start()
         {
-            SendMessage("LOL");
             SendMessage("JOIN|Player1");
             var receiveThread = new Thread(ReceiveData);
             receiveThread.Start();
-
-            gameEngine = new GameEngine(this);
-            gameEngine.Run();
+            //gameEngine.Run();
         }
 
         // Отправка сообщения на сервер
@@ -84,7 +85,10 @@ namespace SnakeGame
 
             switch (command)
             {
-                case "START":
+                case "ASSIGN_ROLE":
+                    HandleRole(payload, senderEndPoint);
+                    break;
+                case "GAME_START":
                     HandleStart(payload, senderEndPoint);
                     break;
                 case "MOVE":
@@ -96,6 +100,23 @@ namespace SnakeGame
                 default:
                     Console.WriteLine($"Неизвестная команда: {command}");
                     break;
+            }
+        }
+
+        private void HandleRole(string payload, IPEndPoint senderEndPoint)
+        {
+            role = payload;
+            if (payload == "Player1")
+            {
+                playerID = 0;
+                gameEngine.isClientHost = true;
+                gameEngine.gameState = GameState.MainMenu;
+            }
+            else if (payload == "Player2")
+            {
+                playerID = 1;
+                gameEngine.isClientHost = false;
+                gameEngine.gameState = GameState.MainMenu;
             }
         }
 
@@ -117,11 +138,9 @@ namespace SnakeGame
         }
         private void HandleStart(string payload, IPEndPoint senderEndPoint)
         {
-            if (payload == "2")
-            {
-                Console.WriteLine($"TRUE");
-                gameEngine.isClientHost = false;
-            }
+            secondPlayer = true;
+            Console.WriteLine($"BOOL SECOND: {secondPlayer}");
+            gameEngine.gameState = GameState.MainMenu;
         }
     }
 }

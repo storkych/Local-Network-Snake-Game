@@ -125,7 +125,13 @@ public class GameServer
             // Добавить игрока в свободную сессию
             availableSession.AddPlayer(senderEndPoint);
             Console.WriteLine($"Игрок {senderEndPoint} добавлен в сессию.");
-            SendMessage("START|2", senderEndPoint); // Сообщить игроку, что игра началась
+
+            // Уведомить игрока о его роли
+            SendMessage("ASSIGN_ROLE|Player2", senderEndPoint);
+
+            // Уведомить первого игрока о старте игры
+            SendMessage("GAME_START", availableSession.Player1);
+            SendMessage("GAME_START", senderEndPoint);
         }
         else
         {
@@ -134,7 +140,12 @@ public class GameServer
             var newSession = new GameSession(senderEndPoint);
             _sessions[sessionId] = newSession;
             Console.WriteLine($"Создана новая сессия {sessionId} для игрока {senderEndPoint}.");
-            SendMessage("START|1", senderEndPoint); // Сообщить игроку, что он ждёт второго игрока
+
+            // Уведомить первого игрока о его роли
+            SendMessage("ASSIGN_ROLE|Player1", senderEndPoint);
+
+            // Уведомить игрока, что он ждёт второго игрока
+            SendMessage("WAIT_FOR_PLAYER", senderEndPoint);
         }
     }
 

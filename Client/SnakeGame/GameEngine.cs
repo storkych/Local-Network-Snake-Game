@@ -31,7 +31,7 @@ namespace SnakeGame
 
         private static readonly Random Random = new Random();
 
-        private GameState gameState;
+        public GameState gameState;
         private GameStateData gameStateData;
         private readonly TitlePrinter printer;
         private readonly SaveLoadManager saveLoadManager;
@@ -42,6 +42,7 @@ namespace SnakeGame
         private IPEndPoint serverEndPoint;
 
         public Direction opponentDirection = Direction.Right; // Направление по умолчанию
+        public bool secondPlayerReady = false;
 
         GameClient gameClient;
         public bool isClientHost = true;
@@ -88,6 +89,9 @@ namespace SnakeGame
                             Clear();
                             printer.TitlePrint();
                             Console.WriteLine($"IS HOST: {isClientHost}");
+                            Console.WriteLine($"ROLE: {gameClient.role}");
+                            Console.WriteLine($"ID: {gameClient.playerID}");
+                            Console.WriteLine($"SECOND PLAYER: {gameClient.secondPlayer}");
                             string[] menuItems = new string[] { "Новая игра", "Таблица рекордов", "Выход" };
 
                             for (var i = 0; i < menuItems.Length; i++)
@@ -123,9 +127,9 @@ namespace SnakeGame
                                 }
                                 else if (selectedItem == 0)
                                 {
+                                    gameState = GameState.Lobby;
                                     // Обработка начала новой игры.
-                                    gameState = GameState.InGame;
-                                    gameStateData = new GameStateData();
+
                                 }
                                 else if (selectedItem == 1)
                                 {
@@ -134,6 +138,43 @@ namespace SnakeGame
                                 }
                             }                            
                             break;
+
+                    case GameState.Lobby:
+                        Clear();
+                        while (true)
+                        {
+                            if (gameClient.playerID == 0)
+                            {
+                                if (gameClient.secondPlayer)
+                                {
+                                    WriteLine("\nВторой игрок присоединился.");
+                                    WriteLine("\nНажмите любую кнопку чтобы начать!");
+                                    ReadKey();
+                                }
+                                else
+                                {
+                                    WriteLine("\nЖдём второго игрока!.");
+                                    ReadKey();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                if (!gameClient.secondPlayer)
+                                {
+                                    WriteLine("\nЖдём, когда хост начнёт игру!");
+                                    ReadKey();
+                                    return;
+                                }
+                            }
+
+
+                            if (gameClient.secondPlayer)
+                            {
+                                gameState = GameState.InGame;
+                                gameStateData = new GameStateData();
+                            }
+                        }
                     // Запуск самой игры со змейкой.                    
                     case GameState.InGame:
 
@@ -164,7 +205,7 @@ namespace SnakeGame
                                 break;
                             }                            
                             break;
-                        case GameState.Paused:
+                    case GameState.Paused:
 
                             Clear();
                             printer.PausePrint();
@@ -293,7 +334,7 @@ namespace SnakeGame
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
-                if (isClientHost)
+                if (gameClient.playerID == 0)
                 {
                     // Управление для змейки 1
                     if (key == ConsoleKey.W && dir1 != Direction.Down) dir1 = Direction.Up;
@@ -314,7 +355,7 @@ namespace SnakeGame
                     gameClient.SendDirection(dir2);
                 }
             }
-            if (isClientHost)
+            if (gameClient.playerID == 0)
             {
                 // Вторая по результатам с сервера
                 dir2 = opponentDirection;

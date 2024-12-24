@@ -8,6 +8,7 @@
         MainMenu,
         InGame,
         GameOver,
-        Paused
+        Paused,
+        Lobby
     }
 }
