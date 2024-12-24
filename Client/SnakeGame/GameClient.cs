@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -16,6 +17,7 @@ namespace SnakeGame
         public string role = "";
         public int playerID;
         public bool secondPlayer = false;
+        public bool waitinGame = false;
 
         public GameClient()
         {
@@ -29,7 +31,7 @@ namespace SnakeGame
             SendMessage("JOIN|Player1");
             var receiveThread = new Thread(ReceiveData);
             receiveThread.Start();
-            //gameEngine.Run();
+            gameEngine.Run();
         }
 
         // Отправка сообщения на сервер
@@ -38,6 +40,11 @@ namespace SnakeGame
             byte[] data = Encoding.UTF8.GetBytes(message);
             udpClient.Send(data, data.Length, serverEndPoint);
             Console.WriteLine($"Отправлено сообщение: {message}");
+        }
+
+        public void StartGame()
+        {
+            SendMessage("START|NOW");
         }
 
         public void SendDirection(Direction direction)
@@ -77,6 +84,7 @@ namespace SnakeGame
         /// <param name="senderEndPoint">Точка отправителя сообщения.</param>
         private void HandleMessage(string message, IPEndPoint senderEndPoint)
         {
+            Console.WriteLine($"!!! {message}");
             var parts = message.Split('|');
             if (parts.Length < 2) return;
 
@@ -88,7 +96,7 @@ namespace SnakeGame
                 case "ASSIGN_ROLE":
                     HandleRole(payload, senderEndPoint);
                     break;
-                case "GAME_START":
+                case "GAME":
                     HandleStart(payload, senderEndPoint);
                     break;
                 case "MOVE":
@@ -138,9 +146,26 @@ namespace SnakeGame
         }
         private void HandleStart(string payload, IPEndPoint senderEndPoint)
         {
-            secondPlayer = true;
-            Console.WriteLine($"BOOL SECOND: {secondPlayer}");
-            gameEngine.gameState = GameState.MainMenu;
+            if (payload == "WAIT")
+            {
+                secondPlayer = false;
+                Console.WriteLine($"BOOL SECOND: {secondPlayer}");
+                gameEngine.gameState = GameState.MainMenu;
+            }
+            else if (payload == "READY")
+            {
+                secondPlayer = true;
+                Console.WriteLine($"BOOL SECOND: {secondPlayer}");
+                gameEngine.gameState = GameState.MainMenu;
+            }
+            else if (payload == "START")
+            {
+                Console.WriteLine($"START GAME");
+                Console.WriteLine($"BOOL SECOND: {gameEngine.gameState}");
+                gameEngine.gameState = GameState.InGame;
+                Console.WriteLine($"BOOL SECOND: {gameEngine.gameState}");
+            }
+
         }
     }
 }

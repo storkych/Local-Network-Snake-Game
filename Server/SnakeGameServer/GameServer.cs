@@ -94,6 +94,17 @@ public class GameServer
             case "LEAVE":
                 HandleLeave(payload, senderEndPoint);
                 break;
+            case "START":
+                foreach (var session in _sessions.Values)
+                {
+                    if (session.Player1.Equals(senderEndPoint) || (session.Player2?.Equals(senderEndPoint) ?? false))
+                    {
+                        SendMessage("GAME|START", session.Player1);
+                        SendMessage("GAME|START", session.Player2);
+                        return;
+                    }
+                }
+                break;
             default:
                 Console.WriteLine($"Неизвестная команда: {command}");
                 break;
@@ -130,8 +141,8 @@ public class GameServer
             SendMessage("ASSIGN_ROLE|Player2", senderEndPoint);
 
             // Уведомить первого игрока о старте игры
-            SendMessage("GAME_START", availableSession.Player1);
-            SendMessage("GAME_START", senderEndPoint);
+            SendMessage("GAME|READY", availableSession.Player1);
+            SendMessage("GAME|READY", senderEndPoint);
         }
         else
         {
@@ -145,7 +156,7 @@ public class GameServer
             SendMessage("ASSIGN_ROLE|Player1", senderEndPoint);
 
             // Уведомить игрока, что он ждёт второго игрока
-            SendMessage("WAIT_FOR_PLAYER", senderEndPoint);
+            SendMessage("GAME_WAIT", senderEndPoint);
         }
     }
 

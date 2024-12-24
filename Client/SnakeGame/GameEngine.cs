@@ -140,46 +140,54 @@ namespace SnakeGame
                             break;
 
                     case GameState.Lobby:
+                        
                         Clear();
-                        while (true)
+                        
+                        if (gameClient.playerID == 0 && !gameClient.waitinGame)
                         {
-                            if (gameClient.playerID == 0)
+                            string[] menuIems = { "Запустить игру" };
+
+                            for (var i = 0; i < menuIems.Length; i++)
                             {
-                                if (gameClient.secondPlayer)
+                                if (i == selectedItem)
                                 {
-                                    WriteLine("\nВторой игрок присоединился.");
-                                    WriteLine("\nНажмите любую кнопку чтобы начать!");
-                                    ReadKey();
+                                    ForegroundColor = ConsoleColor.White;
                                 }
                                 else
                                 {
-                                    WriteLine("\nЖдём второго игрока!.");
-                                    ReadKey();
-                                    return;
+                                    ForegroundColor = ConsoleColor.Gray;
                                 }
+
+                                WriteLine((i == selectedItem ? ">> " : "   ") + menuIems[i]);
                             }
-                            else
+                            if (gameClient.playerID == 0)
                             {
-                                if (!gameClient.secondPlayer)
+                                keyInfo = ReadKey(true);
+
+                                if ((keyInfo.Key == ConsoleKey.W) && (selectedItem > 0))
                                 {
-                                    WriteLine("\nЖдём, когда хост начнёт игру!");
-                                    ReadKey();
-                                    return;
+                                    selectedItem--;
                                 }
-                            }
-
-
-                            if (gameClient.secondPlayer)
-                            {
-                                gameState = GameState.InGame;
-                                gameStateData = new GameStateData();
+                                else if ((keyInfo.Key == ConsoleKey.S) && (selectedItem < menuIems.Length - 1))
+                                {
+                                    selectedItem++;
+                                }
+                                else if (keyInfo.Key == ConsoleKey.Enter)
+                                {
+                                    if (selectedItem == 0)
+                                    {
+                                        gameClient.StartGame();
+                                    }
+                                }
                             }
                         }
+                        break;
                     // Запуск самой игры со змейкой.                    
                     case GameState.InGame:
-
+                            gameStateData = new GameStateData();
                             Clear();
                             match = StartGame();
+                            
                                                     
                             break;
                     // Отображение экрана смерти.
@@ -260,6 +268,9 @@ namespace SnakeGame
         private GameStateData StartGame()
         {
             bool isGameOver = false;
+            Direction dir1 = Direction.Right, dir2 = Direction.Right;
+            opponentDirection = Direction.Right;
+
             Snake snake1 = new Snake(10, 5, ConsoleColor.Blue, ConsoleColor.DarkBlue);
             Snake snake2 = new Snake(10, 15, ConsoleColor.Red, ConsoleColor.DarkRed);
 
@@ -267,7 +278,6 @@ namespace SnakeGame
             Pixel food2 = GenFood(snake2);
 
             int score1 = 0, score2 = 0;
-            Direction dir1 = Direction.Right, dir2 = Direction.Right;
 
             Clear();
             DrawBoard();
@@ -326,6 +336,7 @@ namespace SnakeGame
             }
 
             // Возвращаем данные о состоянии игры
+            gameState = GameState.Lobby;
             return new GameStateData();
         }
 
