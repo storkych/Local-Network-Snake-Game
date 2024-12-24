@@ -39,9 +39,15 @@ namespace SnakeGame
             Console.WriteLine($"Отправлено сообщение: {message}");
         }
 
-        public void SendDirection(string direction)
+        public void SendDirection(Direction direction)
         {
-            string message = $"MOVE|{direction}";
+            string stringDirection = "";
+            if (direction == Direction.Up) stringDirection = "UP";
+            else if (direction == Direction.Down) stringDirection = "DOWN";
+            else if (direction == Direction.Left) stringDirection = "LEFT";
+            else if (direction == Direction.Right) stringDirection = "RIGHT";
+
+            string message = $"MOVE|{stringDirection}";
             byte[] data = Encoding.UTF8.GetBytes(message);
             udpClient.Send(data, data.Length, serverEndPoint);
         }
@@ -70,7 +76,6 @@ namespace SnakeGame
         /// <param name="senderEndPoint">Точка отправителя сообщения.</param>
         private void HandleMessage(string message, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"HandleMessage");
             var parts = message.Split('|');
             if (parts.Length < 2) return;
 
@@ -101,12 +106,17 @@ namespace SnakeGame
         /// <param name="senderEndPoint">Точка отправителя.</param>
         private void HandleMove(string payload, IPEndPoint senderEndPoint)
         {
-            //Console.WriteLine($"ПРИШЁЛ ХОД: {payload}");
-            gameEngine.direction2 = payload;
+            Direction newDir = Direction.Right;
+
+            if (payload == "UP") newDir = Direction.Up;
+            else if (payload == "DOWN") newDir = Direction.Down;
+            else if (payload == "LEFT") newDir = Direction.Left;
+            else if (payload == "RIGHT") newDir = Direction.Right;
+
+            gameEngine.opponentDirection = newDir;
         }
         private void HandleStart(string payload, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"PAYLOAD: {payload}");
             if (payload == "2")
             {
                 Console.WriteLine($"TRUE");

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|solutionrelative:snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\snakegame\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|solutionrelative:snakegame\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\client\\snakegame\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|solutionrelative:snakegame\\gameclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\client\\snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|solutionrelative:snakegame\\gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E2EAF978-3BDF-4CEF-9CA5-3757A916A7CD}|SnakeGame\\SnakeGameClient.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\snakegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,17 +42,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 258,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "GameEngine.cs",
               "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\SnakeGame\\GameEngine.cs",
               "RelativeDocumentMoniker": "SnakeGame\\GameEngine.cs",
               "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\SnakeGame\\GameEngine.cs",
               "RelativeToolTip": "SnakeGame\\GameEngine.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAAAAC4AAAAgAAAA",
+              "ViewState": "AQIAAB8BAAAAAAAAAAAwwEQBAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-23T20:06:05.216Z",
               "EditorCaption": ""
@@ -72,13 +72,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GameClient.cs",
               "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\SnakeGame\\GameClient.cs",
               "RelativeDocumentMoniker": "SnakeGame\\GameClient.cs",
               "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\Client\\SnakeGame\\GameClient.cs",
               "RelativeToolTip": "SnakeGame\\GameClient.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAA1wCAAAAAAAAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAowGQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-23T19:38:37.006Z",
               "EditorCaption": ""

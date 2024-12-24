@@ -40,8 +40,8 @@ namespace SnakeGame
 
         private UdpClient client;
         private IPEndPoint serverEndPoint;
-        private string direction = "RIGHT"; // Направление по умолчанию
-        public string direction2 = "RIGHT"; // Направление по умолчанию
+
+        public Direction opponentDirection = Direction.Right; // Направление по умолчанию
 
         GameClient gameClient;
         public bool isClientHost = true;
@@ -87,7 +87,7 @@ namespace SnakeGame
 
                             Clear();
                             printer.TitlePrint();
-                            Console.WriteLine($"PAYLOAD: {isClientHost}");
+                            Console.WriteLine($"IS HOST: {isClientHost}");
                             string[] menuItems = new string[] { "Новая игра", "Таблица рекордов", "Выход" };
 
                             for (var i = 0; i < menuItems.Length; i++)
@@ -293,33 +293,38 @@ namespace SnakeGame
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
-                // Управление для игрока 1
-                if (key == ConsoleKey.W && dir1 != Direction.Down)
+                if (isClientHost)
                 {
-                    dir1 = Direction.Up;
-                    direction = "UP";
+                    // Управление для змейки 1
+                    if (key == ConsoleKey.W && dir1 != Direction.Down) dir1 = Direction.Up;
+                    else if (key == ConsoleKey.S && dir1 != Direction.Up) dir1 = Direction.Down;
+                    else if (key == ConsoleKey.A && dir1 != Direction.Right) dir1 = Direction.Left;
+                    else if (key == ConsoleKey.D && dir1 != Direction.Left) dir1 = Direction.Right;
+                    // Вторая по результатам с сервера
+                    gameClient.SendDirection(dir1);
                 }
-                else if (key == ConsoleKey.S && dir1 != Direction.Up) 
+                else
                 {
-                    dir1 = Direction.Down;
-                    direction = "DOWN";
+                    // Управление для змейки 2
+                    if (key == ConsoleKey.W && dir2 != Direction.Down) dir2 = Direction.Up;
+                    else if (key == ConsoleKey.S && dir2 != Direction.Up) dir2 = Direction.Down;
+                    else if (key == ConsoleKey.A && dir2 != Direction.Right) dir2 = Direction.Left;
+                    else if (key == ConsoleKey.D && dir2 != Direction.Left) dir2 = Direction.Right;
+                    // Первая по результатам с сервера
+                    gameClient.SendDirection(dir2);
                 }
-                else if (key == ConsoleKey.A && dir1 != Direction.Right) 
-                { 
-                    dir1 = Direction.Left;
-                    direction = "LEFT";
-                }
-                else if (key == ConsoleKey.D && dir1 != Direction.Left) 
-                { 
-                    dir1 = Direction.Right;
-                    direction = "RIGHT";
-                }
-                gameClient.SendDirection(direction);
             }
-            if (direction2 == "UP") dir2 = Direction.Up;
-            else if (direction2 == "DOWN") dir2 = Direction.Down;
-            else if (direction2 == "LEFT") dir2 = Direction.Left;
-            else if (direction2 == "RIGHT") dir2 = Direction.Right;
+            if (isClientHost)
+            {
+                // Вторая по результатам с сервера
+                dir2 = opponentDirection;
+            }
+            else
+            {
+                // Первая по результатам с сервера
+                dir1 = opponentDirection;
+            }
+
         }
 
         private bool CheckCollision(Snake snake)

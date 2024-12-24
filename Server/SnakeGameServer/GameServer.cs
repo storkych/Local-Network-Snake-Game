@@ -77,7 +77,6 @@ public class GameServer
     /// <param name="senderEndPoint">Точка отправителя сообщения.</param>
     private void HandleMessage(string message, IPEndPoint senderEndPoint)
     {
-        Console.WriteLine($"HandleMessage");
         var parts = message.Split('|');
         if (parts.Length < 2) return;
 
@@ -170,7 +169,6 @@ public class GameServer
             var opponent = session.Player1.Equals(senderEndPoint) ? session.Player2 : session.Player1;
             if (opponent != null)
             {
-                Console.WriteLine($"Отправлено оппоненту MOVE|{payload}.");
                 SendMessage($"MOVE|{payload}", opponent);
             }
         }
