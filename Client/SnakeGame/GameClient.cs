@@ -101,12 +101,15 @@ namespace SnakeGame
         /// <param name="senderEndPoint">Точка отправителя.</param>
         private void HandleMove(string payload, IPEndPoint senderEndPoint)
         {
-            Console.WriteLine($"ПРИШЁЛ ХОД: {payload}");
+            //Console.WriteLine($"ПРИШЁЛ ХОД: {payload}");
+            gameEngine.direction2 = payload;
         }
         private void HandleStart(string payload, IPEndPoint senderEndPoint)
         {
+            Console.WriteLine($"PAYLOAD: {payload}");
             if (payload == "2")
             {
+                Console.WriteLine($"TRUE");
                 gameEngine.isClientHost = false;
             }
         }

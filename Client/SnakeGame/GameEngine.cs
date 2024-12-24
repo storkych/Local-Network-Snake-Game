@@ -41,6 +41,7 @@ namespace SnakeGame
         private UdpClient client;
         private IPEndPoint serverEndPoint;
         private string direction = "RIGHT"; // Направление по умолчанию
+        public string direction2 = "RIGHT"; // Направление по умолчанию
 
         GameClient gameClient;
         public bool isClientHost = true;
@@ -86,7 +87,7 @@ namespace SnakeGame
 
                             Clear();
                             printer.TitlePrint();
-
+                            Console.WriteLine($"PAYLOAD: {isClientHost}");
                             string[] menuItems = new string[] { "Новая игра", "Таблица рекордов", "Выход" };
 
                             for (var i = 0; i < menuItems.Length; i++)
@@ -218,17 +219,8 @@ namespace SnakeGame
         private GameStateData StartGame()
         {
             bool isGameOver = false;
-
-            // Создаем змейки и еду для двух игроков
             Snake snake1 = new Snake(10, 5, ConsoleColor.Blue, ConsoleColor.DarkBlue);
             Snake snake2 = new Snake(10, 15, ConsoleColor.Red, ConsoleColor.DarkRed);
-            
-            if (!isClientHost)
-            {
-                Snake temp = snake2;
-                snake2 = snake1;
-                snake1 = temp;
-            }
 
             Pixel food1 = GenFood(snake1);
             Pixel food2 = GenFood(snake2);
@@ -247,7 +239,7 @@ namespace SnakeGame
 
             while (!isGameOver)
             {
-                HandleUserInput(ref dir1);
+                HandleUserInput(ref dir1, ref dir2);
 
                 // Обновляем поле игрока 1
                 if (snake1.Head.X == food1.X && snake1.Head.Y == food1.Y)
@@ -296,34 +288,38 @@ namespace SnakeGame
             return new GameStateData();
         }
 
-        private void HandleUserInput(ref Direction dir)
+        private void HandleUserInput(ref Direction dir1, ref Direction dir2)
         {
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
                 // Управление для игрока 1
-                if (key == ConsoleKey.W && dir != Direction.Down)
+                if (key == ConsoleKey.W && dir1 != Direction.Down)
                 {
-                    dir = Direction.Up;
+                    dir1 = Direction.Up;
                     direction = "UP";
                 }
-                else if (key == ConsoleKey.S && dir != Direction.Up) 
+                else if (key == ConsoleKey.S && dir1 != Direction.Up) 
                 {
-                    dir = Direction.Down;
+                    dir1 = Direction.Down;
                     direction = "DOWN";
                 }
-                else if (key == ConsoleKey.A && dir != Direction.Right) 
+                else if (key == ConsoleKey.A && dir1 != Direction.Right) 
                 { 
-                    dir = Direction.Left;
+                    dir1 = Direction.Left;
                     direction = "LEFT";
                 }
-                else if (key == ConsoleKey.D && dir != Direction.Left) 
+                else if (key == ConsoleKey.D && dir1 != Direction.Left) 
                 { 
-                    dir = Direction.Right;
+                    dir1 = Direction.Right;
                     direction = "RIGHT";
                 }
                 gameClient.SendDirection(direction);
             }
+            if (direction2 == "UP") dir2 = Direction.Up;
+            else if (direction2 == "DOWN") dir2 = Direction.Down;
+            else if (direction2 == "LEFT") dir2 = Direction.Left;
+            else if (direction2 == "RIGHT") dir2 = Direction.Right;
         }
 
         private bool CheckCollision(Snake snake)
@@ -340,14 +336,6 @@ namespace SnakeGame
             Write($"Игрок 1: {score1}");
             SetCursorPosition(SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT + 1);
             Write($"Игрок 2: {score2}");
-        }
-
-        // Отправка команды изменения направления
-        private void SendDirection()
-        {
-            string message = $"MOVE|{direction}";
-            byte[] data = Encoding.UTF8.GetBytes(message);
-            client.Send(data, data.Length, serverEndPoint);
         }
 
 
