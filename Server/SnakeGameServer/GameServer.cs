@@ -8,11 +8,16 @@ using System.Linq;
 
 public class GameServer
 {
-    private UdpClient _server; // UDP-сервер для обработки клиентских запросов
-    private readonly int _port; // Порт, на котором работает сервер
-    private readonly Dictionary<string, GameSession> _sessions; // Словарь с сессиями игры
-    private readonly List<string> _topScores; // Список лучших результатов
-    private bool _isRunning; // Флаг, указывающий на состояние сервера
+    // UDP-сервер для обработки клиентских запросов.
+    private UdpClient _server;
+    // Порт, на котором работает сервер.
+    private readonly int _port;
+    // Словарь с сессиями игры.
+    private readonly Dictionary<string, GameSession> _sessions;
+    // Список лучших результатов.
+    private readonly List<string> _topScores;
+    // Флаг, указывающий на состояние сервера.
+    private bool _isRunning;
 
     /// <summary>
     /// Конструктор GameServer, инициализирующий сервер на указанном порту.
@@ -133,29 +138,29 @@ public class GameServer
 
         if (availableSession != null)
         {
-            // Добавить игрока в свободную сессию
+            // Добавить игрока в свободную сессию.
             availableSession.AddPlayer(senderEndPoint);
             Console.WriteLine($"Игрок {senderEndPoint} добавлен в сессию.");
 
-            // Уведомить игрока о его роли
+            // Уведомить игрока о его роли.
             SendMessage("ASSIGN_ROLE|Player2", senderEndPoint);
 
-            // Уведомить первого игрока о старте игры
+            // Уведомить первого игрока о старте игры.
             SendMessage("GAME|READY", availableSession.Player1);
             SendMessage("GAME|READY", senderEndPoint);
         }
         else
         {
-            // Создать новую сессию
+            // Создать новую сессию.
             var sessionId = Guid.NewGuid().ToString();
             var newSession = new GameSession(senderEndPoint);
             _sessions[sessionId] = newSession;
             Console.WriteLine($"Создана новая сессия {sessionId} для игрока {senderEndPoint}.");
 
-            // Уведомить первого игрока о его роли
+            // Уведомить первого игрока о его роли.
             SendMessage("ASSIGN_ROLE|Player1", senderEndPoint);
 
-            // Уведомить игрока, что он ждёт второго игрока
+            // Уведомить игрока, что он ждёт второго игрока.
             SendMessage("GAME_WAIT", senderEndPoint);
         }
     }
@@ -176,18 +181,19 @@ public class GameServer
             return;
         }
         Console.WriteLine($"HandleMove");
-        // Обновить состояние игры
+        // Обновить состояние игры.
         session.UpdateState(payload, senderEndPoint);
 
-        // Если игрок проиграл
+        // Если игрок проиграл.
         if (session.IsGameOverFor(senderEndPoint))
         {
             session.EndSession("Game over", senderEndPoint);
-            _sessions.Remove(session.SessionId); // Удалить сессию
+            // Удалить сессию.
+            _sessions.Remove(session.SessionId);
         }
         else
         {
-            // Переслать ход другому игроку
+            // Передать ход другому игроку.
             var opponent = session.Player1.Equals(senderEndPoint) ? session.Player2 : session.Player1;
             if (opponent != null)
             {
@@ -229,11 +235,16 @@ public class GameServer
 
 public class GameSession
 {
-    public IPEndPoint Player1 { get; set; } // Первый игрок в сессии
-    public IPEndPoint Player2 { get; set; } // Второй игрок в сессии
-    public bool IsFull => Player1 != null && Player2 != null; // Проверка, заполнена ли сессия
-    public string SessionId { get; private set; } // Идентификатор сессии
-    private string _gameState; // Состояние игры
+    // Первый игрок в сессии.
+    public IPEndPoint Player1 { get; set; }
+    // Второй игрок в сессии.
+    public IPEndPoint Player2 { get; set; }
+    // Проверка, заполнена ли сессия.
+    public bool IsFull => Player1 != null && Player2 != null;
+    // Идентификатор сессии.
+    public string SessionId { get; private set; }
+    // Состояние игры.
+    private string _gameState;
 
     /// <summary>
     /// Конструктор GameSession, инициализирующий сессию для первого игрока.
@@ -242,7 +253,8 @@ public class GameSession
     public GameSession(IPEndPoint player1)
     {
         Player1 = player1;
-        SessionId = Guid.NewGuid().ToString(); // Генерация уникального ID для сессии
+        // Генерация уникального ID для сессии.
+        SessionId = Guid.NewGuid().ToString();
     }
 
     /// <summary>
@@ -262,7 +274,7 @@ public class GameSession
     public void UpdateState(string moveData, IPEndPoint sender)
     {
         Console.WriteLine($"Игрок {sender} совершил ход: {moveData}");
-        _gameState = moveData; // Здесь можно обновить состояние игры на основе данных
+        _gameState = moveData;
     }
 
     /// <summary>
@@ -273,7 +285,7 @@ public class GameSession
     public bool IsGameOverFor(IPEndPoint sender)
     {
         Console.WriteLine($"Проверка завершения игры для {sender}");
-        return false; // Например, можно возвращать true, если игрок столкнулся с чем-то
+        return false;
     }
 
     /// <summary>
