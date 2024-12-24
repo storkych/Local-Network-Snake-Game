@@ -42,12 +42,13 @@ namespace SnakeGame
         private IPEndPoint serverEndPoint;
         private string direction = "RIGHT"; // Направление по умолчанию
 
-        private bool isClientHost = true;
+        GameClient gameClient;
+        public bool isClientHost = true;
 
         /// <summary>
         /// Конструктор класса GameEngine.
         /// </summary>
-        public GameEngine(UdpClient client, IPEndPoint serverEndPoint)
+        public GameEngine(GameClient client)
         {
             gameState = GameState.MainMenu;
             gameStateData = new GameStateData();
@@ -55,8 +56,7 @@ namespace SnakeGame
             saveLoadManager = new SaveLoadManager();
             SetWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT + 5);
             SetBufferSize(SCREEN_WIDTH, SCREEN_HEIGHT + 5);
-            this.client = client;
-            this.serverEndPoint = serverEndPoint;
+            gameClient = client;
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace SnakeGame
                     dir = Direction.Right;
                     direction = "RIGHT";
                 }
-                SendDirection();
+                gameClient.SendDirection(direction);
             }
         }
 
