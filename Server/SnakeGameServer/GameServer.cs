@@ -6,13 +6,19 @@ using System.Text;
 using System.Threading;
 using System.Linq;
 
+/// <summary>
+/// Представляет сервер игры, который управляет игровыми сессиями.
+/// </summary>
 public class GameServer
 {
-    private const int Port = 8080;
-    private Socket _socket;
-    private readonly Dictionary<string, GameSession> _sessions;
-    private bool _isRunning;
+    private const int Port = 8080; // Порт, на котором сервер будет прослушивать входящие сообщения.
+    private Socket _socket; // Сокет для работы с UDP.
+    private readonly Dictionary<string, GameSession> _sessions; // Словарь игровых сессий.
+    private bool _isRunning; // Флаг, указывающий на состояние работы сервера.
 
+    /// <summary>
+    /// Инициализирует новый экземпляр класса GameServer.
+    /// </summary>
     public GameServer()
     {
         _sessions = new Dictionary<string, GameSession>();
@@ -20,6 +26,9 @@ public class GameServer
         _socket.Bind(new IPEndPoint(IPAddress.Any, Port));
     }
 
+    /// <summary>
+    /// Запускает сервер и начинает получать сообщения.
+    /// </summary>
     public void Start()
     {
         _isRunning = true;
@@ -29,6 +38,9 @@ public class GameServer
         receiveThread.Start();
     }
 
+    /// <summary>
+    /// Останавливает сервер.
+    /// </summary>
     public void Stop()
     {
         _isRunning = false;
@@ -36,6 +48,9 @@ public class GameServer
         Console.WriteLine("Сервер остановлен.");
     }
 
+    /// <summary>
+    /// Получает данные от клиентов и передает их на обработку.
+    /// </summary>
     private void ReceiveData()
     {
         while (_isRunning)
@@ -57,6 +72,11 @@ public class GameServer
         }
     }
 
+    /// <summary>
+    /// Обрабатывает полученные сообщения от клиентов.
+    /// </summary>
+    /// <param name="message">Полученное сообщение.</param>
+    /// <param name="senderEndPoint">Адрес отправителя.</param>
     private void HandleMessage(string message, IPEndPoint senderEndPoint)
     {
         var parts = message.Split('|');
@@ -93,6 +113,11 @@ public class GameServer
         }
     }
 
+    /// <summary>
+    /// Обрабатывает запрос на присоединение игрока к сессии.
+    /// </summary>
+    /// <param name="payload">Имя игрока.</param>
+    /// <param name="senderEndPoint">Адрес отправителя.</param>
     private void HandleJoin(string payload, IPEndPoint senderEndPoint)
     {
         foreach (var session in _sessions.Values)
@@ -125,6 +150,11 @@ public class GameServer
         }
     }
 
+    /// <summary>
+    /// Обрабатывает движение игрока.
+    /// </summary>
+    /// <param name="payload">Данные о движении.</param>
+    /// <param name="senderEndPoint">Адрес отправителя.</param>
     private void HandleMove(string payload, IPEndPoint senderEndPoint)
     {
         var session = _sessions.Values.FirstOrDefault(s =>
@@ -153,6 +183,11 @@ public class GameServer
         }
     }
 
+    /// <summary>
+    /// Обрабатывает уход игрока из сессии.
+    /// </summary>
+    /// <param name="payload">Ничего не содержит.</param>
+    /// <param name="senderEndPoint">Адрес отправителя.</param>
     private void HandleLeave(string payload, IPEndPoint senderEndPoint)
     {
         var sessionId = _sessions.FirstOrDefault(s =>
@@ -166,6 +201,11 @@ public class GameServer
         }
     }
 
+    /// <summary>
+    /// Отправляет сообщение указанному получателю.
+    /// </summary>
+    /// <param name="message">Сообщение для отправки.</param>
+    /// <param name="recipient">Адрес получателя.</param>
     private void SendMessage(string message, IPEndPoint recipient)
     {
         var data = Encoding.UTF8.GetBytes(message);
@@ -174,43 +214,69 @@ public class GameServer
     }
 }
 
+/// <summary>
+/// Представляет игровую сессию между двумя игроками.
+/// </summary>
 public class GameSession
 {
-    public IPEndPoint Player1 { get; private set; }
-    public IPEndPoint Player2 { get; private set; }
-    public bool IsFull => Player1 != null && Player2 != null;
-    public string SessionId { get; private set; }
-    private string _gameState;
+    public IPEndPoint Player1 { get; private set; } // Первый игрок.
+    public IPEndPoint Player2 { get; private set; } // Второй игрок.
+    public bool IsFull => Player1 != null && Player2 != null; // Проверяет, полна ли сессия.
+    public string SessionId { get; private set; } // Идентификатор сессии.
+    private string _gameState; // Состояние игры.
 
+    /// <summary>
+    /// Инициализирует новый экземпляр класса GameSession с первым игроком.
+    /// </summary>
+    /// <param name="player1">Адрес первого игрока.</param>
     public GameSession(IPEndPoint player1)
     {
         Player1 = player1;
         SessionId = Guid.NewGuid().ToString();
     }
 
+    /// <summary>
+    /// Добавляет второго игрока в сессию.
+    /// </summary>
+    /// <param name="player2">Адрес второго игрока.</param>
     public void AddPlayer(IPEndPoint player2)
     {
         Player2 = player2;
     }
 
+    /// <summary>
+    /// Обновляет состояние игры на основании движения игрока.
+    /// </summary>
+    /// <param name="moveData">Данные о движении.</param>
+    /// <param name="sender">Адрес игрока, совершившего движение.</param>
     public void UpdateState(string moveData, IPEndPoint sender)
     {
         Console.WriteLine($"Игрок {sender} совершил ход: {moveData}");
         _gameState = moveData;
     }
 
+    /// <summary>
+    /// Проверяет, закончилась ли игра для указанного игрока.
+    /// </summary>
+    /// <param name="sender">Адрес проверяемого игрока.</param>
+    /// <returns>Истина, если игра закончилась, иначе ложь.</returns>
     public bool IsGameOverFor(IPEndPoint sender)
     {
         Console.WriteLine($"Проверка завершения игры для {sender}");
-        return false; // Логика завершения игры
+        return false; // Логика завершения игры.
     }
 
+    /// <summary>
+    /// Завершает сессию игры и уведомляет участников.
+    /// </summary>
+    /// <param name="reason">Причина завершения игры.</param>
+    /// <param name="senderEndPoint">Адрес игрока, завершившего игру.</param>
     public void EndSession(string reason, IPEndPoint senderEndPoint)
     {
         var opponent = Player1.Equals(senderEndPoint) ? Player2 : Player1;
         if (opponent != null)
         {
-            // Логика для завершения сессии
+            // Логика для завершения сессии.
             Console.WriteLine($"Сессия завершена. Причина: {reason}");
         }
     }
