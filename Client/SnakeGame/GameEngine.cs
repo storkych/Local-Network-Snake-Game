@@ -2,27 +2,20 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using static System.Console;
-using System.Text;
 
 namespace SnakeGame
 {
-    /// <summary>
-    /// Класс, отвечающий за логику игры.
-    /// </summary>
     internal class GameEngine
     {
-        private const int MAP_WIDTH = 30;
-        private const int MAP_HEIGHT = 20;
+        private const int MAP_WIDTH = 20;
+        private const int MAP_HEIGHT = 15;
         private const int MAX_RECORDS = 10;
-
         private const int SCREEN_WIDTH = MAP_WIDTH * 3;
         private const int SCREEN_HEIGHT = MAP_HEIGHT * 3;
-
-        private const int FRAME_MILLISECONDS = 200;
+        private const int FRAME_MILLISECONDS = 100;
 
         private const ConsoleColor BORDER_COLOR = ConsoleColor.White;
         private const ConsoleColor FOOD_COLOR = ConsoleColor.Green;
@@ -38,18 +31,12 @@ namespace SnakeGame
 
         static bool pauseRequested = false;
 
-        private UdpClient client;
-        private IPEndPoint serverEndPoint;
-
         public Direction opponentDirection = Direction.Right; // Направление по умолчанию
         public bool secondPlayerReady = false;
 
-        GameClient gameClient;
+        private GameClient gameClient;
         public bool isClientHost = true;
 
-        /// <summary>
-        /// Конструктор класса GameEngine.
-        /// </summary>
         public GameEngine(GameClient client)
         {
             gameState = GameState.MainMenu;
@@ -67,7 +54,7 @@ namespace SnakeGame
         public void Run()
         {
             GameStateData match = new GameStateData();
-            
+
             bool exitRequested = false;
             gameStateData = saveLoadManager.LoadData();
             CursorVisible = false;
@@ -79,189 +66,107 @@ namespace SnakeGame
             int selectedItem = 0;
 
             while (!exitRequested)
+            {
+                switch (gameState)
                 {
-                    switch (gameState)
-                    {
-                    // Отображение главного меню.
-                    // Обработка клавиш для выбора опций главного меню.
                     case GameState.MainMenu:
-
-                            Clear();
-                            printer.TitlePrint();
-                            Console.WriteLine($"IS HOST: {isClientHost}");
-                            Console.WriteLine($"ROLE: {gameClient.role}");
-                            Console.WriteLine($"ID: {gameClient.playerID}");
-                            Console.WriteLine($"SECOND PLAYER: {gameClient.secondPlayer}");
-                            string[] menuItems = new string[] { "Новая игра", "Таблица рекордов", "Выход" };
-
-                            for (var i = 0; i < menuItems.Length; i++)
-                            {
-                                if (i == selectedItem)
-                                {
-                                    ForegroundColor = ConsoleColor.White;
-                                }
-                                else
-                                {
-                                    ForegroundColor = i == 0 && !gameStateData.IsSavedGame ? ConsoleColor.Gray : ConsoleColor.White;
-                                }
-
-                                WriteLine((i == selectedItem ? ">> " : "   ") + menuItems[i]);
-                            }
-
-                            keyInfo = ReadKey(true);
-
-                            if ((keyInfo.Key == ConsoleKey.W) && (selectedItem > 0))
-                            {
-                                selectedItem--;
-                            }
-                            else if ((keyInfo.Key == ConsoleKey.S) && (selectedItem < menuItems.Length - 1))
-                            {
-                                selectedItem++;
-                            }
-                            else if (keyInfo.Key == ConsoleKey.Enter)
-                            {
-                                if (selectedItem == menuItems.Length - 1)
-                                {
-                                    // Устанавливаем флаг выхода.
-                                    exitRequested = true;
-                                }
-                                else if (selectedItem == 0)
-                                {
-                                    gameState = GameState.Lobby;
-                                    // Обработка начала новой игры.
-
-                                }
-                                else if (selectedItem == 1)
-                                {
-                                    ShowRecords(records);
-                                    selectedItem = 0;
-                                }
-                            }                            
-                            break;
+                        Clear();
+                        printer.TitlePrint();
+                        DisplayClientInfo();
+                        DisplayMainMenu(ref selectedItem, ref exitRequested);
+                        break;
 
                     case GameState.Lobby:
-                        
                         Clear();
-                        
-                        if (gameClient.playerID == 0 && !gameClient.waitinGame)
+                        if (gameClient.playerID == 0 && !gameClient.waitingGame)
                         {
-                            string[] menuIems = { "Запустить игру" };
-
-                            for (var i = 0; i < menuIems.Length; i++)
-                            {
-                                if (i == selectedItem)
-                                {
-                                    ForegroundColor = ConsoleColor.White;
-                                }
-                                else
-                                {
-                                    ForegroundColor = ConsoleColor.Gray;
-                                }
-
-                                WriteLine((i == selectedItem ? ">> " : "   ") + menuIems[i]);
-                            }
-                            if (gameClient.playerID == 0)
-                            {
-                                keyInfo = ReadKey(true);
-
-                                if ((keyInfo.Key == ConsoleKey.W) && (selectedItem > 0))
-                                {
-                                    selectedItem--;
-                                }
-                                else if ((keyInfo.Key == ConsoleKey.S) && (selectedItem < menuIems.Length - 1))
-                                {
-                                    selectedItem++;
-                                }
-                                else if (keyInfo.Key == ConsoleKey.Enter)
-                                {
-                                    if (selectedItem == 0)
-                                    {
-                                        gameClient.StartGame();
-                                    }
-                                }
-                            }
+                            ShowLobbyMenu(ref selectedItem);
                         }
                         break;
-                    // Запуск самой игры со змейкой.                    
+
                     case GameState.InGame:
-                            gameStateData = new GameStateData();
-                            Clear();
-                            match = StartGame();
-                            
-                                                    
-                            break;
-                    // Отображение экрана смерти.
-                    // Обработка клавиш для перезапуска игры или возврата в главное меню.
+                        match = StartGame();
+                        break;
+
                     case GameState.GameOver:
+                        HandleGameOver(records, match);
+                        break;
 
-                            Clear();
-
-                            records.Add($"{match.PlayerName} {match.Score}");
-                            records.Sort((a, b) => int.Parse(b.Split(' ')[1]) - int.Parse(a.Split(' ')[1]));
-
-                            saveLoadManager.WriteRecords(records);
-
-                            printer.GameOverPrint();
-                            WriteLine($"Ваши очки: {match.Score}\n");
-                            WriteLine("Нажмите Enter чтобы вернуться в главное меню.\n");
-
-                            while (true)
-                            {
-                                var keyInafo = ReadKey(true);
-                                if (keyInafo.Key == ConsoleKey.Enter)
-                                    gameState = GameState.MainMenu;
-                                break;
-                            }                            
-                            break;
                     case GameState.Paused:
+                        PauseMenu(ref selectedItem);
+                        break;
+                }
+                Clear();
+            }
+        }
 
-                            Clear();
-                            printer.PausePrint();
+        private void DisplayClientInfo()
+        {
+            WriteLine($"IS HOST: {isClientHost}");
+            WriteLine($"ROLE: {gameClient.role}");
+            WriteLine($"ID: {gameClient.playerID}");
+            WriteLine($"SECOND PLAYER: {gameClient.secondPlayer}");
+        }
 
-                            string[] menuPItems = { "Продолжить игру", "Сохранить игру", "Выйти в меню" };
+        private void DisplayMainMenu(ref int selectedItem, ref bool exitRequested)
+        {
+            string[] menuItems = { "Новая игра", "Таблица рекордов", "Выход" };
 
-                            for (var i = 0; i < menuPItems.Length; i++)
-                            {
-                                if (i == selectedItem)
-                                {
-                                    ForegroundColor = ConsoleColor.White;
-                                }
-                                else
-                                {
-                                    ForegroundColor = ConsoleColor.Gray;
-                                }
+            for (var i = 0; i < menuItems.Length; i++)
+            {
+                ForegroundColor = i == selectedItem ? ConsoleColor.White : ConsoleColor.Gray;
+                WriteLine((i == selectedItem ? ">> " : "   ") + menuItems[i]);
+            }
 
-                                WriteLine((i == selectedItem ? ">> " : "   ") + menuPItems[i]);
-                            }
+            var keyInfo = ReadKey(true);
 
-                            keyInfo = ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.W && selectedItem > 0)
+            {
+                selectedItem--;
+            }
+            else if (keyInfo.Key == ConsoleKey.S && selectedItem < menuItems.Length - 1)
+            {
+                selectedItem++;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (selectedItem == menuItems.Length - 1)
+                {
+                    exitRequested = true;
+                }
+                else if (selectedItem == 0)
+                {
+                    gameState = GameState.Lobby;
+                }
+            }
+        }
 
-                            if ((keyInfo.Key == ConsoleKey.W) && (selectedItem > 0))
-                            {
-                                selectedItem--;
-                            }
-                            else if ((keyInfo.Key == ConsoleKey.S) && (selectedItem < menuPItems.Length - 1))
-                            {
-                                selectedItem++;
-                            }
-                            else if (keyInfo.Key == ConsoleKey.Enter)
-                            {
-                                if (selectedItem == 2)
-                                {
-                                    gameState = GameState.MainMenu;
-                                }
-                                else if (selectedItem == 0)
-                                {
-                                    gameState = GameState.InGame;
-                                }
-                                else if (selectedItem == 1)
-                                {
-                                    saveLoadManager.SaveData(gameStateData);
-                                }
-                            }
-                            break;
-                    }
-                    Clear();
+        private void ShowLobbyMenu(ref int selectedItem)
+        {
+            string[] menuItems = { "Запустить игру" };
+
+            for (var i = 0; i < menuItems.Length; i++)
+            {
+                ForegroundColor = i == selectedItem ? ConsoleColor.White : ConsoleColor.Gray;
+                WriteLine((i == selectedItem ? ">> " : "   ") + menuItems[i]);
+            }
+
+            var keyInfo = ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.W && selectedItem > 0)
+            {
+                selectedItem--;
+            }
+            else if (keyInfo.Key == ConsoleKey.S && selectedItem < menuItems.Length - 1)
+            {
+                selectedItem++;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (selectedItem == 0)
+                {
+                    gameClient.StartGame();
+                }
             }
         }
 
@@ -269,7 +174,6 @@ namespace SnakeGame
         {
             bool isGameOver = false;
             Direction dir1 = Direction.Right, dir2 = Direction.Right;
-            opponentDirection = Direction.Right;
 
             Snake snake1 = new Snake(10, 5, ConsoleColor.Blue, ConsoleColor.DarkBlue);
             Snake snake2 = new Snake(10, 15, ConsoleColor.Red, ConsoleColor.DarkRed);
@@ -318,24 +222,19 @@ namespace SnakeGame
                     snake2.Move(dir2);
                 }
 
-                // Проверяем столкновения для обеих змей
+                // Проверка на столкновения
                 if (CheckCollision(snake1) || CheckCollision(snake2))
                 {
                     isGameOver = true;
                 }
 
-                // Отображаем счета
-                SetCursorPosition(2, SCREEN_HEIGHT + 1);
-                Write($"Игрок 1: {score1}");
-                SetCursorPosition(SCREEN_WIDTH / 2 + 2, SCREEN_HEIGHT + 1);
-                Write($"Игрок 2: {score2}");
+                DisplayScores(score1, score2);
 
                 Thread.Sleep(FRAME_MILLISECONDS - lagMs);
                 sw.Restart();
                 lagMs = (int)sw.ElapsedMilliseconds;
             }
 
-            // Возвращаем данные о состоянии игры
             gameState = GameState.Lobby;
             return new GameStateData();
         }
@@ -345,38 +244,36 @@ namespace SnakeGame
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true).Key;
-                if (gameClient.playerID == 0)
+
+                if (gameClient.playerID == 0) // Первого игрока
                 {
-                    // Управление для змейки 1
-                    if (key == ConsoleKey.W && dir1 != Direction.Down) dir1 = Direction.Up;
-                    else if (key == ConsoleKey.S && dir1 != Direction.Up) dir1 = Direction.Down;
-                    else if (key == ConsoleKey.A && dir1 != Direction.Right) dir1 = Direction.Left;
-                    else if (key == ConsoleKey.D && dir1 != Direction.Left) dir1 = Direction.Right;
-                    // Вторая по результатам с сервера
-                    gameClient.SendDirection(dir1);
+                    UpdateDirection(ref dir1, key);
+                    gameClient.SendDirection(dir1); // Отправка направления на сервер
                 }
-                else
+                else // Второй игрок
                 {
-                    // Управление для змейки 2
-                    if (key == ConsoleKey.W && dir2 != Direction.Down) dir2 = Direction.Up;
-                    else if (key == ConsoleKey.S && dir2 != Direction.Up) dir2 = Direction.Down;
-                    else if (key == ConsoleKey.A && dir2 != Direction.Right) dir2 = Direction.Left;
-                    else if (key == ConsoleKey.D && dir2 != Direction.Left) dir2 = Direction.Right;
-                    // Первая по результатам с сервера
-                    gameClient.SendDirection(dir2);
+                    UpdateDirection(ref dir2, key);
+                    gameClient.SendDirection(dir2); // Отправка направления на сервер
                 }
             }
+
+            // Обновление направления противника с учетом текущего состояния
             if (gameClient.playerID == 0)
             {
-                // Вторая по результатам с сервера
-                dir2 = opponentDirection;
+                dir2 = opponentDirection; // Второго игрока
             }
             else
             {
-                // Первая по результатам с сервера
-                dir1 = opponentDirection;
+                dir1 = opponentDirection; // Первого игрока
             }
+        }
 
+        private void UpdateDirection(ref Direction direction, ConsoleKey key)
+        {
+            if (key == ConsoleKey.W && direction != Direction.Down) direction = Direction.Up;
+            else if (key == ConsoleKey.S && direction != Direction.Up) direction = Direction.Down;
+            else if (key == ConsoleKey.A && direction != Direction.Right) direction = Direction.Left;
+            else if (key == ConsoleKey.D && direction != Direction.Left) direction = Direction.Right;
         }
 
         private bool CheckCollision(Snake snake)
@@ -386,7 +283,6 @@ namespace SnakeGame
                    snake.Body.Any(b => b.X == snake.Head.X && b.Y == snake.Head.Y);
         }
 
-
         private void DisplayScores(int score1, int score2)
         {
             SetCursorPosition(2, SCREEN_HEIGHT + 1);
@@ -395,42 +291,70 @@ namespace SnakeGame
             Write($"Игрок 2: {score2}");
         }
 
-
-        /// <summary>
-        /// Запрашивает у пользователя ввод ника.
-        /// </summary>
-        /// <returns></returns>
-        private string GetPlayerName()
+        private void HandleGameOver(List<string> records, GameStateData match)
         {
-            string playerName;
-            do
+            records.Add($"{match.PlayerName} {match.Score}");
+            records.Sort((a, b) => int.Parse(b.Split(' ')[1]) - int.Parse(a.Split(' ')[1]));
+
+            saveLoadManager.WriteRecords(records);
+            printer.GameOverPrint();
+            WriteLine($"Ваши очки: {match.Score}\n");
+            WriteLine("Нажмите Enter чтобы вернуться в главное меню.\n");
+
+            while (true)
             {
-                Clear();
-                Write("Введите ваш ник: ");
-                // Если ReadLine() возвращает null, присвоим пустую строку.
-                playerName = ReadLine() ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(playerName))
-                {
-                    WriteLine("Имя не может быть пустым. Пожалуйста, введите ваш ник.");
-                    ReadKey();
-                }
-                else if (playerName.Length > 15)
-                {
-                    WriteLine("Имя не может быть больше 15 символов. Пожалуйста, введите ваш ник.");
-                    ReadKey();
-                }
-                else if (playerName.Contains(" "))
-                {
-                    WriteLine("Имя не может включать пробел. Пожалуйста, введите ваш ник.");
-                    ReadKey();
-                }
-            } while (string.IsNullOrEmpty(playerName) || playerName.Length > 15 || playerName.Contains(" "));
-            return playerName;
+                var keyInfo = ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Enter)
+                    gameState = GameState.MainMenu;
+                break;
+            }
         }
 
-        /// <summary>
-        /// Отрисовывает границы игрового поля.
-        /// </summary>
+        private void PauseMenu(ref int selectedItem)
+        {
+            Clear();
+            printer.PausePrint();
+
+            string[] menuPItems = { "Продолжить игру", "Сохранить игру", "Выйти в меню" };
+
+            for (var i = 0; i < menuPItems.Length; i++)
+            {
+                ForegroundColor = i == selectedItem ? ConsoleColor.White : ConsoleColor.Gray;
+                WriteLine((i == selectedItem ? ">> " : "   ") + menuPItems[i]);
+            }
+
+            var keyInfo = ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.W && selectedItem > 0)
+            {
+                selectedItem--;
+            }
+            else if (keyInfo.Key == ConsoleKey.S && selectedItem < menuPItems.Length - 1)
+            {
+                selectedItem++;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                HandlePauseMenuSelection(selectedItem);
+            }
+        }
+
+        private void HandlePauseMenuSelection(int selectedItem)
+        {
+            if (selectedItem == 2)
+            {
+                gameState = GameState.MainMenu;
+            }
+            else if (selectedItem == 0)
+            {
+                gameState = GameState.InGame;
+            }
+            else if (selectedItem == 1)
+            {
+                saveLoadManager.SaveData(gameStateData);
+            }
+        }
+
         private void DrawBoard()
         {
             for (var i = 0; i < MAP_WIDTH; i++)
@@ -446,11 +370,6 @@ namespace SnakeGame
             }
         }
 
-        /// <summary>
-        /// Генерирует новую еду для змейки.
-        /// </summary>
-        /// <param name="snake"> - змея. </param>
-        /// <returns></returns>
         private Pixel GenFood(Snake snake)
         {
             Pixel food;
@@ -464,14 +383,9 @@ namespace SnakeGame
             return food;
         }
 
-        /// <summary>
-        /// Отображает таблицу рекордов.
-        /// </summary>
-        /// <param name="records"> - лист рекордов. </param>
         private void ShowRecords(List<string> records)
         {
             Clear();
-
             WriteLine("Таблица рекордов:");
 
             for (var i = 0; i < records.Count; i++)
@@ -482,13 +396,11 @@ namespace SnakeGame
                 }
 
                 string[] record = records[i].Split(' ');
-                Debug.WriteLine(i);
                 WriteLine($"{i + 1}. {record[0]}: {record[1]}");
             }
 
             WriteLine("\nНажмите Enter, чтобы вернуться в главное меню.");
             ReadKey();
         }
-
     }
 }
