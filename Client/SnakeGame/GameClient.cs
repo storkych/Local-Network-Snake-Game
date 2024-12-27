@@ -24,7 +24,7 @@ namespace SnakeGame
             // Инициализация сокета.
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             // Установка конечной точки для сервера.
-            _serverEndPoint = new IPEndPoint(IPAddress.Loopback, Port);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("172.20.10.2"), Port);
             // Создание экземпляра игрового движка.
             gameEngine = new GameEngine(this);
         }

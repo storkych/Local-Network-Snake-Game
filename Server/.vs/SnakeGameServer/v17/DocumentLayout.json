@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\snakegameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|solutionrelative:snakegameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|c:\\users\\\u044E\u043B\u044F\\documents\\github\\local-network-snake-game\\server\\snakegameserver\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|solutionrelative:snakegameserver\\gameserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\snakegameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA62AE09-8037-4087-A4F1-511D92325E5C}|SnakeGameServer\\SnakeGameServer.csproj|solutionrelative:snakegameserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +18,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 258,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GameServer.cs",
               "DocumentMoniker": "C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\SnakeGameServer\\GameServer.cs",
               "RelativeDocumentMoniker": "SnakeGameServer\\GameServer.cs",
               "ToolTip": "C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\SnakeGameServer\\GameServer.cs",
               "RelativeToolTip": "SnakeGameServer\\GameServer.cs",
-              "ViewState": "AQIAAMIAAAAAAAAAAAAQwNkAAAAAAAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAkwBUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-23T19:41:42.518Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\\u042E\u043B\u044F\\Documents\\GitHub\\Local-Network-Snake-Game\\Server\\SnakeGameServer\\Program.cs",
               "RelativeDocumentMoniker": "SnakeGameServer\\Program.cs",
@@ -43,8 +43,7 @@
               "RelativeToolTip": "SnakeGameServer\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-23T19:39:57.188Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-23T19:39:57.188Z"
             }
           ]
         }
