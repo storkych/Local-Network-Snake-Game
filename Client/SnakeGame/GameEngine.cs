@@ -12,8 +12,6 @@ namespace SnakeGame
     {
         private const int MAP_WIDTH = 30;
         private const int MAP_HEIGHT = 20;
-        // Максимальное количество рекордов для отображения.
-        private const int MAX_RECORDS = 10;
         // Ширина экрана, рассчитываемая на основании ширины карты.
         private const int SCREEN_WIDTH = MAP_WIDTH * 3;
         // Высота экрана, рассчитываемая на основании высоты карты.
@@ -33,8 +31,6 @@ namespace SnakeGame
         private readonly TitlePrinter printer;
         // Объект для управления сохранением и загрузкой данных.
         private readonly SaveLoadManager saveLoadManager;
-        // Запрос паузы в игре.
-        static bool pauseRequested = false;
         // Направление противника по умолчанию.
         public Direction opponentDirection = Direction.Right;
         // Флаг готовности второго игрока.
@@ -68,12 +64,7 @@ namespace SnakeGame
             bool exitRequested = false;
             gameStateData = saveLoadManager.LoadData();
             CursorVisible = false;
-            List<string> records = saveLoadManager.ReadRecords();
 
-            // Сортировка рекордов по убыванию
-            records.Sort((a, b) => int.Parse(b.Split(' ')[1]) - int.Parse(a.Split(' ')[1]));
-
-            ConsoleKeyInfo keyInfo;
             int selectedItem = 0;
 
             while (!exitRequested)
@@ -100,12 +91,9 @@ namespace SnakeGame
                         break;
 
                     case GameState.GameOver:
-                        HandleGameOver(records, match);
+                        HandleGameOver(match);
                         break;
 
-                    case GameState.Paused:
-                        PauseMenu(ref selectedItem);
-                        break;
                 }
                 Clear();
             }
@@ -129,7 +117,7 @@ namespace SnakeGame
         /// <param name="exitRequested">Флаг запроса выхода из игры (передается по ссылке).</param>
         private void DisplayMainMenu(ref int selectedItem, ref bool exitRequested)
         {
-            string[] menuItems = { "Новая игра", "Таблица рекордов", "Выход" };
+            string[] menuItems = { "Новая игра", "Выход" };
 
             for (var i = 0; i < menuItems.Length; i++)
             {
@@ -345,12 +333,8 @@ namespace SnakeGame
         /// </summary>
         /// <param name="records">Список рекордов.</param>
         /// <param name="match">Данные об окончании текущей игры.</param>
-        private void HandleGameOver(List<string> records, GameStateData match)
+        private void HandleGameOver(GameStateData match)
         {
-            records.Add($"{match.PlayerName} {match.Score}");
-            records.Sort((a, b) => int.Parse(b.Split(' ')[1]) - int.Parse(a.Split(' ')[1]));
-
-            saveLoadManager.WriteRecords(records);
             printer.GameOverPrint();
             WriteLine($"Ваши очки: {match.Score}\n");
             WriteLine("Нажмите Enter чтобы вернуться в главное меню.\n");
@@ -364,59 +348,7 @@ namespace SnakeGame
             }
         }
 
-        /// <summary>
-        /// Отображает меню паузы и обрабатывает выбор пользователя.
-        /// </summary>
-        /// <param name="selectedItem">Выбранный пункт меню (передается по ссылке).</param>
-        private void PauseMenu(ref int selectedItem)
-        {
-            Clear();
-            printer.PausePrint();
-
-            string[] menuPItems = { "Продолжить игру", "Сохранить игру", "Выйти в меню" };
-
-            for (var i = 0; i < menuPItems.Length; i++)
-            {
-                ForegroundColor = i == selectedItem ? ConsoleColor.White : ConsoleColor.Gray;
-                WriteLine((i == selectedItem ? ">> " : "   ") + menuPItems[i]);
-            }
-
-            var keyInfo = ReadKey(true);
-
-            if (keyInfo.Key == ConsoleKey.W && selectedItem > 0)
-            {
-                selectedItem--;
-            }
-            else if (keyInfo.Key == ConsoleKey.S && selectedItem < menuPItems.Length - 1)
-            {
-                selectedItem++;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                HandlePauseMenuSelection(selectedItem); // Обработка выбора паузы.
-            }
-        }
-
-        /// <summary>
-        /// Обрабатывает выбор пункта меню паузы.
-        /// </summary>
-        /// <param name="selectedItem">Выбранный пункт меню.</param>
-        private void HandlePauseMenuSelection(int selectedItem)
-        {
-            if (selectedItem == 2)
-            {
-                gameState = GameState.MainMenu; // Вернуться в главное меню.
-            }
-            else if (selectedItem == 0)
-            {
-                gameState = GameState.InGame; // Продолжить игру.
-            }
-            else if (selectedItem == 1)
-            {
-                saveLoadManager.SaveData(gameStateData); // Сохранить игру.
-            }
-        }
-
+  
         /// <summary>
         /// Отрисовывает границы игрового поля.
         /// </summary>
@@ -453,28 +385,5 @@ namespace SnakeGame
             return food; // Возвращаем сгенерированную еду
         }
 
-        /// <summary>
-        /// Отображает таблицу рекордов.
-        /// </summary>
-        /// <param name="records">Список рекордов для отображения.</param>
-        private void ShowRecords(List<string> records)
-        {
-            Clear();
-            WriteLine("Таблица рекордов:");
-
-            for (var i = 0; i < records.Count; i++)
-            {
-                if (i >= MAX_RECORDS)
-                {
-                    break; // Выходим из цикла, если достигнуто максимальное количество рекордов
-                }
-
-                string[] record = records[i].Split(' ');
-                WriteLine($"{i + 1}. {record[0]}: {record[1]}"); // Отображение рекорда
-            }
-
-            WriteLine("\nНажмите Enter, чтобы вернуться в главное меню.");
-            ReadKey();
-        }
     }
 }

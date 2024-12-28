@@ -24,7 +24,7 @@ namespace SnakeGame
             // Инициализация сокета.
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             // Установка конечной точки для сервера.
-            _serverEndPoint = new IPEndPoint(IPAddress.Parse("172.20.10.2"), Port);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.1.77"), Port);
             // Создание экземпляра игрового движка.
             gameEngine = new GameEngine(this);
         }
@@ -47,7 +47,7 @@ namespace SnakeGame
             // Отправка сообщения на сервер.
             _socket.SendTo(data, _serverEndPoint);
             // Вывод информации в консоль.
-            Console.WriteLine($"Отправлено сообщение: {message}");
+            //Console.WriteLine($"Отправлено сообщение: {message}");
         }
 
         public void StartGame()
@@ -92,7 +92,7 @@ namespace SnakeGame
         private void HandleMessage(string message, IPEndPoint senderEndPoint)
         {
             // Вывод сообщения в консоль.
-            Console.WriteLine($"Получено сообщение: {message} от {senderEndPoint}");
+            //Console.WriteLine($"Получено сообщение: {message} от {senderEndPoint}");
             // Разделение сообщения на части.
             var parts = message.Split('|');
             if (parts.Length < 2) return;
