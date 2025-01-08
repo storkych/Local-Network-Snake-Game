@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SnakeServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d87698752eb5c71f4c829c4ee7d2131570820e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+832a0e2aaef6e244f0bb42c6c335f6d17fa21933")]
 [assembly: System.Reflection.AssemblyProductAttribute("SnakeServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SnakeServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

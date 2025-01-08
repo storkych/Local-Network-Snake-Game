@@ -135,6 +135,9 @@ public class SnakeClient : MonoBehaviour
                 Debug.Log($"DIRECTION from server: {commandData}");
                 break;
 
+            case "FOOD_POSITION":
+                gameLobby.SetFoodPosition(commandData);
+                break;
             default:
                 Debug.LogWarning($"Unknown command type: {commandType}");
                 break;

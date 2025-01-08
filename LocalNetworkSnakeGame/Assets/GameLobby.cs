@@ -18,6 +18,7 @@ public class GameLobby : MonoBehaviour
     public SnakeClient snakeClient;
 
     public List<SnakeMovement> snakeMovementList;
+    public Food food;
 
     void Start()
     {
@@ -92,6 +93,26 @@ public class GameLobby : MonoBehaviour
     public void SendDirection(string direction)
     {
         snakeClient.SendCommandAsync("DIRECTION", direction);
+    }
+
+    public void SendFoodPosition(float x, float y)
+    {
+        snakeClient.SendCommandAsync("FOOD_POSITION", x + "_" + y);
+    }
+
+    public void SetFoodPosition(string data)
+    {
+        var parts = data.Split('_'); // разделяем по символу '_'
+
+        // Присваиваем значения переменным
+        var x = parts[0];
+        var y = parts[1];
+
+        // Преобразуем x и y в нужные типы 
+        float xPos = int.Parse(x);
+        float yPos = int.Parse(y);
+
+        food.SetPosition(xPos, yPos);
     }
 
     public void SetOpponentDirection(string direction)

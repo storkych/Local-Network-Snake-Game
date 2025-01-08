@@ -107,7 +107,7 @@ public class SnakeMovement : MonoBehaviour
 
     public void StartGame()
     {
-        //ResetState();
+        ResetState();
         gameStarted = true;
         // Инициализация начальных позиций и направления для каждой змейки
         if (playerId == 0)
@@ -141,6 +141,10 @@ public class SnakeMovement : MonoBehaviour
             Grow(); // Растем при съедении еды
         }
         else if (other.tag == "Obstacle")
+        {
+            gameLobby.GameOverCall();
+        }
+        else if (other.tag == "Player")
         {
             gameLobby.GameOverCall();
         }

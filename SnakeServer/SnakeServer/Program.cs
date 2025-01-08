@@ -158,6 +158,13 @@ class Server
                         }
                     }
                 }
+                else if (commandType == "FOOD_POSITION")
+                {
+                    foreach (var player in session.Players)
+                    {
+                        await SendMessageAsync($"FOOD_POSITION|{command}", player.GetStream());
+                    }
+                }
                 else
                 {
                     Console.WriteLine($"Unknown command: {receivedMessage}");
