@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class GameLobby : MonoBehaviour
 {
-    public TMP_Text statusText;
-
     private int playerId = 0;
 
     public GameObject mainMenu;
+    public GameObject lobbyMenu;
+    public TMP_Text lobbyIdText;
     public GameObject finishScreen;
 
     public GameObject startButton;
@@ -21,19 +21,7 @@ public class GameLobby : MonoBehaviour
 
     void Start()
     {
-        statusText.text = "Nothing now";
-    }
-
-    public void OnPlayerReady()
-    {
-        //snakeClient.ConnectToServer();
-        statusText.text = "Waiting for second player...";
-    }
-
-    public void OnSessionStarted()
-    {
-        statusText.text = "Game Started!";
-        // Можно запускать игру
+        Screen.SetResolution(800, 450, false); 
     }
 
     public void GameOverCall()
@@ -61,13 +49,16 @@ public class GameLobby : MonoBehaviour
 
     public void StartGame()
     {
-        mainMenu.SetActive(false);
+        lobbyMenu.SetActive(false);
         RestartGame();
     }
 
     public void SetClientID(int id)
     {
         playerId = id;
+        lobbyIdText.text = playerId.ToString();
+        mainMenu.SetActive(false);
+        lobbyMenu.SetActive(true);
         snakeMovementList[playerId].isPlayer = true;
         if (id == 0) { snakeMovementList[0].gameObject.SetActive(true); }
     }

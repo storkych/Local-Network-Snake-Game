@@ -23,7 +23,7 @@ public class SnakeClient : MonoBehaviour
         networkStream = tcpClient.GetStream();
 
         // Отправляем сообщение на сервер
-        ConnectToServerAsync();
+        //ConnectToServerAsync();
     }
 
     public async void ConnectToServerAsync()

@@ -22,12 +22,14 @@
 /SnakeServer/*.userosscache
 /SnakeServer/*.sln.docstates
 
+
 # Игнорировать временные файлы системы
 .DS_Store
 Thumbs.db
 
 # Игнорировать папки с кэшами других IDE
 .idea/
+.vs/
 
 # Игнорировать Unity crash files
 sysinfo.txt
