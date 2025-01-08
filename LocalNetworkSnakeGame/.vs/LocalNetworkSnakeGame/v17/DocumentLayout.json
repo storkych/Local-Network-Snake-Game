@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\assets\\snakeclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\snakeclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|c:\\users\\storkych\\documents\\unityprojects\\localnetworksnakegame\\assets\\gamelobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\gamelobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\assets\\snakemovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\snakemovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\assets\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SnakeClient.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\SnakeClient.cs",
+              "RelativeDocumentMoniker": "Assets\\SnakeClient.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\SnakeClient.cs",
+              "RelativeToolTip": "Assets\\SnakeClient.cs",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAiwFQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T13:20:20.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameLobby.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\GameLobby.cs",
+              "RelativeDocumentMoniker": "Assets\\GameLobby.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\GameLobby.cs",
+              "RelativeToolTip": "Assets\\GameLobby.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T13:19:50.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Food.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\Food.cs",
+              "RelativeDocumentMoniker": "Assets\\Food.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\Food.cs",
+              "RelativeToolTip": "Assets\\Food.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAwwAQAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T09:47:20.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SnakeMovement.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\SnakeMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\SnakeMovement.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\UnityProjects\\LocalNetworkSnakeGame\\Assets\\SnakeMovement.cs",
+              "RelativeToolTip": "Assets\\SnakeMovement.cs",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAYwH8AAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T09:46:43.789Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

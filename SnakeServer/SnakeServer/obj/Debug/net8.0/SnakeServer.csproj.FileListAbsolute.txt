@@ -1,0 +1,15 @@
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\bin\Debug\net8.0\SnakeServer.exe
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\bin\Debug\net8.0\SnakeServer.deps.json
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\bin\Debug\net8.0\SnakeServer.runtimeconfig.json
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\bin\Debug\net8.0\SnakeServer.dll
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\bin\Debug\net8.0\SnakeServer.pdb
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.AssemblyInfoInputs.cache
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.AssemblyInfo.cs
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.csproj.CoreCompileInputs.cache
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.sourcelink.json
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.dll
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\refint\SnakeServer.dll
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.pdb
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\SnakeServer.genruntimeconfig.cache
+C:\Users\storkych\Documents\GithubRepos\Local-Network-Snake-Game\SnakeServer\SnakeServer\obj\Debug\net8.0\ref\SnakeServer.dll
