@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SnakeClient : MonoBehaviour
 {
-    private TcpClient tcpClient;
+    private Socket clientSocket;
     private NetworkStream networkStream;
     private readonly string serverIp = "192.168.1.77";
     private readonly int serverPort = 7777;
@@ -18,10 +18,11 @@ public class SnakeClient : MonoBehaviour
 
     void Start()
     {
-        tcpClient = new TcpClient();
-        tcpClient.Connect(serverIp, serverPort);
-        networkStream = tcpClient.GetStream();
-
+        /*
+        clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        clientSocket.Connect(serverIp, serverPort);
+        networkStream = new NetworkStream(clientSocket);
+        */
         // Отправляем сообщение на сервер
         //ConnectToServerAsync();
     }
@@ -30,6 +31,11 @@ public class SnakeClient : MonoBehaviour
     {
         try
         {
+            isListening = true;
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            clientSocket.Connect(serverIp, serverPort);
+            networkStream = new NetworkStream(clientSocket);
+
             // Отправить сообщение для подключения
             string message = "Hello, server!";
             await SendMessageAsync(message);
@@ -83,7 +89,6 @@ public class SnakeClient : MonoBehaviour
         }
     }
 
-
     private void ProcessCommand(string command)
     {
         // Разбор сообщения
@@ -128,6 +133,11 @@ public class SnakeClient : MonoBehaviour
                 {
                     gameLobby.FinishGame();
                 }
+                else if (commandData == "PLAYER_DISCONNECTED")
+                {
+                    DoDisconnect();
+                    gameLobby.StopSession();
+                }
                 break;
 
             case "DIRECTION":
@@ -171,10 +181,18 @@ public class SnakeClient : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
+    private void DoDisconnect()
     {
         isListening = false;
         networkStream.Close();
-        tcpClient.Close();
+        clientSocket.Close();
+    }
+
+    void OnApplicationQuit()
+    {
+        // Отправляем сообщение серверу, что клиент отключается
+        SendCommandAsync("DISCONNECT", "");
+
+        DoDisconnect();
     }
 }

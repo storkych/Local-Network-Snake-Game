@@ -11,6 +11,7 @@ public class GameLobby : MonoBehaviour
     public GameObject lobbyMenu;
     public TMP_Text lobbyIdText;
     public GameObject finishScreen;
+    public GameObject sessionClosedMenu;
 
     public GameObject startButton;
     public GameObject waitingForHost;
@@ -138,5 +139,35 @@ public class GameLobby : MonoBehaviour
         }
 
         snakeMovementList[opponentId].ChangeDirection(newDirection);
+    }
+
+    public void ResetSnakes()
+    {
+        foreach (var snake in snakeMovementList)
+        {
+            snake.ResetState();
+            snake.isPlayer = false;
+            snake.gameObject.SetActive(false);
+        }
+    }
+
+    public void StopSession()
+    {
+        FinishGame();
+
+        finishScreen.SetActive(false);
+        mainMenu.SetActive(false);
+        lobbyMenu.SetActive(false);
+
+        sessionClosedMenu.SetActive(true);
+
+        startButton.SetActive(false);
+        ResetSnakes();
+    }
+
+    public void LeaveSession()
+    {
+        snakeClient.SendCommandAsync("DISCONNECT", "_");
+        StopSession();
     }
 }

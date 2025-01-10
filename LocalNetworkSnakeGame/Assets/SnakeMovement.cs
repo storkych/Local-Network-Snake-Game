@@ -101,15 +101,6 @@ public class SnakeMovement : MonoBehaviour
         segments.Add(this.transform);
 
         // Сбрасываем начальную позицию и направление
-        transform.position = Vector3.zero;
-        direction = Vector2.right;
-    }
-
-    public void StartGame()
-    {
-        ResetState();
-        gameStarted = true;
-        // Инициализация начальных позиций и направления для каждой змейки
         if (playerId == 0)
         {
             transform.position = new Vector3(-5, 1, 0); // Пример для первого игрока
@@ -118,6 +109,13 @@ public class SnakeMovement : MonoBehaviour
         {
             transform.position = new Vector3(-5, -1, 0); // Пример для второго игрока
         }
+        direction = Vector2.right;
+    }
+
+    public void StartGame()
+    {
+        ResetState();
+        gameStarted = true;
     }
 
     public void FinishGame()
