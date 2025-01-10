@@ -104,6 +104,7 @@ public class GameLobby : MonoBehaviour
         if (playerId == 1)
         {
             waitingForHost.SetActive(true); // Показываем сообщение "Ожидание хоста" для второго игрока.
+            food.SendPosToServer();
         }
         foreach (var snake in snakeMovementList)
         {
