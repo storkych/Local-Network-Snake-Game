@@ -1,5 +1,34 @@
-*.user
-*.suo
-*.vscode
-bin/
-obj/
+# Игнорировать папки, содержащие временные и кэшированные файлы Unity
+/LocalNetworkSnakeGame/Library/
+/LocalNetworkSnakeGame/Temp/
+/LocalNetworkSnakeGame/Obj/
+/LocalNetworkSnakeGame/Builds/
+/LocalNetworkSnakeGame/Packages/PackageCache/
+
+# Игнорировать папки с кэшами и сессиями пакетов
+/LocalNetworkSnakeGame/Packages/
+/LocalNetworkSnakeGame/ProjectSettings/EditorBuildSettings.asset
+/LocalNetworkSnakeGame/ProjectSettings/GraphicsSettings.asset
+/LocalNetworkSnakeGame/ProjectSettings/InputManager.asset
+/LocalNetworkSnakeGame/ProjectSettings/QualitySettings.asset
+/LocalNetworkSnakeGame/ProjectSettings/TagManager.asset
+
+# Игнорировать файлы, связанные с Visual Studio
+/SnakeServer/.vs/
+/SnakeServer/.vscode/
+/SnakeServer/*.user
+/SnakeServer/*.suo
+/SnakeServer/*.userosscache
+/SnakeServer/*.sln.docstates
+
+
+# Игнорировать временные файлы системы
+.DS_Store
+Thumbs.db
+
+# Игнорировать папки с кэшами других IDE
+.idea/
+.vs/
+
+# Игнорировать Unity crash files
+sysinfo.txt

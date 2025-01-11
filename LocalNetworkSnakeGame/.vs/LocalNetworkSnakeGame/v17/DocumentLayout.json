@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\assets\\gamelobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\gamelobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\assets\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|c:\\users\\storkych\\documents\\githubrepos\\local-network-snake-game\\localnetworksnakegame\\assets\\snakeclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\snakeclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\assets\\snakemovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9F23192-6917-BE05-C89B-0FC4907CAD02}|Assembly-CSharp.csproj|solutionrelative:assets\\snakemovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SnakeClient.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\SnakeClient.cs",
+              "RelativeDocumentMoniker": "Assets\\SnakeClient.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\SnakeClient.cs",
+              "RelativeToolTip": "Assets\\SnakeClient.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAALcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T13:20:20.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameLobby.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\GameLobby.cs",
+              "RelativeDocumentMoniker": "Assets\\GameLobby.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\GameLobby.cs",
+              "RelativeToolTip": "Assets\\GameLobby.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAmwGsAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T13:19:50.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Food.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\Food.cs",
+              "RelativeDocumentMoniker": "Assets\\Food.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\Food.cs",
+              "RelativeToolTip": "Assets\\Food.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAowAQAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T09:47:20.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SnakeMovement.cs",
+              "DocumentMoniker": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\SnakeMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\SnakeMovement.cs",
+              "ToolTip": "C:\\Users\\storkych\\Documents\\GithubRepos\\Local-Network-Snake-Game\\LocalNetworkSnakeGame\\Assets\\SnakeMovement.cs",
+              "RelativeToolTip": "Assets\\SnakeMovement.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAwwHYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T09:46:43.789Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
